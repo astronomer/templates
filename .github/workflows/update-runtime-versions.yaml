@@ -35,7 +35,7 @@ jobs:
           # Get the latest runtime version from the previous step
             latest_runtime=$LATEST_RUNTIME
           # Update the Dockerfile with the latest runtime version
-          sed -i "s/FROM quay.io\/astronomer\/astro-runtime:.*/FROM quay.io\/astronomer\/astro-runtime:$latest_runtime/" Dockerfile
+          sed -i -s "s/FROM quay.io\/astronomer\/astro-runtime:.*/FROM quay.io\/astronomer\/astro-runtime:$latest_runtime/" **/Dockerfile
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
