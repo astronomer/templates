@@ -1,0 +1,43 @@
+# If you're a new Astro user, discard this workflow.
+name: Astronomer Maintenance CI - Update Astro Runtime Version
+
+on:
+  workflow_dispatch: # Manual trigger
+  schedule:
+    - cron: "0 16 * * *" # Once a day at noon ET
+
+env:
+  ENABLE_RUNTIME_AUTO_UPDATES: false
+
+jobs:
+  update-runtime-version:
+    # Only run this job if the repository is the original example-dags repository on main branch
+    # so we don't accidentally update the runtime version in forks / template repositories
+    if: github.repository == 'astronomer/examples'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+
+      - name: Get latest Astronomer Runtime version
+        id: get_latest_runtime
+        run: |
+          # Fetch the latest runtime version from updates.astronomer.io
+          response=$(curl -s https://updates.astronomer.io/astronomer-runtime)
+          # Extract the latest runtime version using jq
+          latest_version=$(echo $response | jq -r '.runtimeVersions | keys | sort_by(. | split(".") | map(tonumber)) | last')
+          # Set the latest runtime version as an output
+          echo "LATEST_RUNTIME=$latest_version" >> $GITHUB_ENV
+      - name: Update Dockerfile with latest runtime version
+        run: |
+          # Get the latest runtime version from the previous step
+            latest_runtime=$LATEST_RUNTIME
+          # Update the Dockerfile with the latest runtime version
+          sed -i "s/FROM quay.io\/astronomer\/astro-runtime:.*/FROM quay.io\/astronomer\/astro-runtime:$latest_runtime/" Dockerfile
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Update Astro Runtime to ${{ ENV.LATEST_RUNTIME }}"
+          push_options: --force
