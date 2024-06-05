@@ -33,6 +33,7 @@ jobs:
       - name: Update Dockerfiles with latest runtime version
         run: |
           latest_runtime=$LATEST_RUNTIME
+          export latest_runtime
           find . -maxdepth 1 -type d ! -path . -exec sh -c '
               for dir; do
               if [ -f "$dir/Dockerfile" ]; then
