@@ -30,12 +30,16 @@ jobs:
           latest_version=$(echo $response | jq -r '.runtimeVersions | keys | sort_by(. | split(".") | map(tonumber)) | last')
           # Set the latest runtime version as an output
           echo "LATEST_RUNTIME=$latest_version" >> $GITHUB_ENV
-      - name: Update Dockerfile with latest runtime version
+      - name: Update Dockerfiles with latest runtime version
         run: |
-          # Get the latest runtime version from the previous step
-            latest_runtime=$LATEST_RUNTIME
-          # Update the Dockerfile with the latest runtime version
-          sed -i -s "s/FROM quay.io\/astronomer\/astro-runtime:.*/FROM quay.io\/astronomer\/astro-runtime:$latest_runtime/" **/Dockerfile
+          latest_runtime=$LATEST_RUNTIME
+          find . -maxdepth 1 -type d ! -path . -exec sh -c '
+              for dir; do
+              if [ -f "$dir/Dockerfile" ]; then
+                  sed -i "s|FROM quay.io/astronomer/astro-runtime:.*|FROM quay.io/astronomer/astro-runtime:$latest_runtime|" "$dir/Dockerfile"
+              fi
+              done
+          ' sh {} +
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
