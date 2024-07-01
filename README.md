@@ -11,7 +11,7 @@ Welcome to the Astronomer Templates repository! Launch your journey with Airflow
 
 This repository contains 3 projects for unlocking the full power of Airflow. Shown here:
 
-             |  Project |  Description
+Discover | Project |  Description
 :-------------------------:|:-------------------------:|:-------------------------:
 ![Learning](https://github.com/astronomer/templates/assets/8996430/38d282d8-c342-48ca-a197-5f0702814ee1)(learning-airflow/README.md)| [Learning Airflow](learning-airflow/README.md) | Start here! A simple project for learning the basics of Airflow.
 ![ETL](https://github.com/astronomer/templates/assets/8996430/50716411-28cf-4d94-af69-fcc4021b3615)(etl/README.md) | [ETL](etl/README.md) | Discover the ways Airflow unlocks Extract, Transform, and Load (ETL) use cases for data team
