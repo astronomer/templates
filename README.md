@@ -11,11 +11,11 @@ Welcome to the Astronomer Templates repository! Launch your journey with Airflow
 
 This repository contains 3 projects for unlocking the full power of Airflow. Shown here:
 
-Project             |  Description
-:-------------------------:|:-------------------------:
-![Learning](https://github.com/astronomer/templates/assets/8996430/38d282d8-c342-48ca-a197-5f0702814ee1) [Learning Airflow](learning-airflow/README.md)  |  Start here! A simple project for learning the basics of Airflow.
-![ETL](https://github.com/astronomer/templates/assets/8996430/50716411-28cf-4d94-af69-fcc4021b3615) [ETL](etl/README.md)  | Discover the ways Airflow unlocks Extract, Transform, and Load (ETL) use cases for data team
-![GenAI](https://github.com/astronomer/templates/assets/8996430/e9d00e87-c3e6-4e23-b08f-18dca84e71ad) [Generative AI](generative-ai/README.md) |  Airflow is a best-in-class tool for orchestrating AI workloads -- discover a retrieval augmented generation (RAG) use case here in a simple example
+             |  Project |  Description
+:-------------------------:|:-------------------------:|:-------------------------:
+![Learning](https://github.com/astronomer/templates/assets/8996430/38d282d8-c342-48ca-a197-5f0702814ee1)(learning-airflow/README.md)| [Learning Airflow](learning-airflow/README.md) | Start here! A simple project for learning the basics of Airflow.
+![ETL](https://github.com/astronomer/templates/assets/8996430/50716411-28cf-4d94-af69-fcc4021b3615)(etl/README.md) | [ETL](etl/README.md) | Discover the ways Airflow unlocks Extract, Transform, and Load (ETL) use cases for data team
+![GenAI](https://github.com/astronomer/templates/assets/8996430/e9d00e87-c3e6-4e23-b08f-18dca84e71ad)(generative-ai/README.md) | [Generative AI](generative-ai/README.md) |  Airflow is a best-in-class tool for orchestrating AI workloads -- discover a retrieval augmented generation (RAG) use case here in a simple example
 
 ## Getting Started Locally
 
