@@ -5,7 +5,7 @@
   </a>
 </p>
 
-Launch your journey with Airflow using these starter-packs and exmaples. 
+Launch your journey with Airflow using these starter-packs and exmaples.
 
 ## Astro Starter Packs
 
