@@ -1,12 +1,12 @@
 <p align="center">
   <a href="https://astronomer.io">
     <img src="https://www.astronomer.io/monogram/astronomer-monogram-RGB-600px.png" height="96">
-    <h3 align="center">Astronomer Examples</h3>
+    <h3 align="center">Astronomer Templates</h3>
   </a>
 </p>
 
-Launch your journey with Airflow using these starter-packs and exmaples.
+Welcome to the Astronomer Templates repository! Launch your journey with Airflow by signing up for a trial at astronomer.io! If you've already created a trial and have cloned this repository, check out your project in the table of contents
 
-## Astro Starter Packs
+## Table of Contents
 
-Deploy these starter packs with free credit by signing up for a trial at astronomer.io!
+This repository contains 3 projects for unlocking the full power of Airflow.
