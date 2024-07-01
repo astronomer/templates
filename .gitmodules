@@ -1,4 +1,0 @@
-[submodule "astro-example-dags"]
-	path = astro-example-dags
-	url = https://github.com/astronomer/astro-example-dags
-	branch = main

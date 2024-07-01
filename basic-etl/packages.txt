@@ -1,3 +1,0 @@
-pkg-config
-libhdf5-dev
-g
