@@ -1,8 +1,8 @@
 """
 ## Galaxies ETL example DAG
 
-This example demonstrates an ETL pipeline using Airflow. 
-The pipeline extracts data about galaxies, filters the data based on the distance 
+This example demonstrates an ETL pipeline using Airflow.
+The pipeline extracts data about galaxies, filters the data based on the distance
 from the Milky Way, and loads the filtered data into a DuckDB database.
 """
 
@@ -42,7 +42,6 @@ _DUCKDB_TABLE_URI = f"duckdb://{_DUCKDB_INSTANCE_NAME}/{_DUCKDB_TABLE_NAME}"
     tags=["example", "ETL"],
 )
 def example_etl_galaxies():
-
     @task
     def create_galaxy_table_in_duckdb(
         duckdb_instance_name: str = _DUCKDB_INSTANCE_NAME,
