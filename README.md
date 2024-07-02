@@ -35,5 +35,3 @@ Note: Running 'astro dev start' will start your project with the Airflow Webserv
 4. Access the Airflow UI for your local Airflow project. To do so, go to http://localhost:8080/ and log in with 'admin' for both your Username and Password.
 
 You should also be able to access your Postgres Database at 'localhost:5432/postgres'.
-
-

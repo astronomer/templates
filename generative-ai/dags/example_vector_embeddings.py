@@ -66,7 +66,6 @@ def get_embeddings_one_word(word):
     },
 )
 def example_vector_embeddings():
-
     @task
     def get_words(**context) -> list:
         """
