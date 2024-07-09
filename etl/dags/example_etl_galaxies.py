@@ -2,8 +2,9 @@
 ## Galaxies ETL example DAG
 
 This example demonstrates an ETL pipeline using Airflow.
-The pipeline extracts data about galaxies, filters the data based on the distance
-from the Milky Way, and loads the filtered data into a DuckDB database.
+The pipeline extracts data about galaxies using a modularized function, 
+filters the data based on the distance from the Milky Way, and loads the 
+filtered data into a DuckDB database.
 """
 
 from airflow.decorators import dag, task

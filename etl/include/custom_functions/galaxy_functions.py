@@ -2,12 +2,18 @@ import pandas as pd
 
 
 def get_galaxy_data(num_galaxies=20):
+    """
+    Get data about up to 20 galaxies.
+    Args:
+        num_galaxies: number of galaxies requested (default:20)
+    """
 
     if num_galaxies > 20:
         print(
             "The maximum number galaxies for which data can be returned is 20. Returning data for 20 galaxies."
         )
 
+    # hardcoded data for the example
     data = [
         {
             "name": "Canis Major Dwarf",
@@ -153,4 +159,5 @@ def get_galaxy_data(num_galaxies=20):
 
     galaxies_df = pd.DataFrame(data)
 
+    # return a random sample
     return galaxies_df.sample(num_galaxies)
