@@ -10,7 +10,7 @@ filtered data into a DuckDB database.
 from airflow.decorators import dag, task
 from airflow.models.dataset import Dataset
 from airflow.models.baseoperator import chain
-from pendulum import datetime
+from pendulum import datetime, duration
 from tabulate import tabulate
 import pandas as pd
 import duckdb
@@ -24,7 +24,7 @@ from include.custom_functions.galaxy_functions import get_galaxy_data
 t_log = logging.getLogger("airflow.task")
 
 # define variables used in a DAG in the DAG code or as environment variables for your whole Airflow instance
-# avoid hardcoding values in the DAG code
+# to avoid hardcoding values in the DAG code
 _CLOSENESS_THRESHOLD_LIGHT_YEARS = os.getenv("CLOSENESS_THRESHOLD_LIGHT_YEARS", 500000)
 _NUM_GALAXIES_TOTAL = os.getenv("NUM_GALAXIES_TOTAL", 20)
 _DUCKDB_INSTANCE_NAME = os.getenv("DUCKDB_INSTANCE_NAME", "include/astronomy.db")
@@ -32,15 +32,20 @@ _DUCKDB_TABLE_NAME = os.getenv("DUCKDB_TABLE_NAME", "galaxy_data")
 _DUCKDB_TABLE_URI = f"duckdb://{_DUCKDB_INSTANCE_NAME}/{_DUCKDB_TABLE_NAME}"
 
 
-# Define the basic parameters of the DAG, like schedule and start_date
+# define the basic parameters of the DAG, like schedule and start_date
 @dag(
-    start_date=datetime(2024, 5, 1),
-    schedule="@daily",
-    catchup=False,
-    max_consecutive_failed_dag_runs=5,  # auto-pauses the DAG after 5 consecutive failed runs
-    doc_md=__doc__,
-    default_args={"owner": "Astro", "retries": 3},
-    tags=["example", "ETL"],
+    start_date=datetime(2024, 7, 1),  # date after which the DAG can be scheduled
+    schedule="@daily",  # see: https://www.astronomer.io/docs/learn/scheduling-in-airflow for options
+    catchup=False,  # see: https://www.astronomer.io/docs/learn/rerunning-dags#catchup
+    max_consecutive_failed_dag_runs=5,  # auto-pauses the DAG after 5 consecutive failed runs, experimental
+    max_active_runs=1,
+    doc_md=__doc__,  # add DAG Docs in the UI, see https://www.astronomer.io/docs/learn/custom-airflow-ui-docs-tutorial
+    default_args={
+        "owner": "Astro",
+        "retries": 3,  # tasks retry 3 times before they fail
+        "retry_delay": duration(seconds=30),  # tasks wait 30s in between retries
+    },  # default_args are applied to all tasks in a DAG
+    tags=["example", "ETL"],  # add tags in the UI
 )
 def example_etl_galaxies():
     @task
