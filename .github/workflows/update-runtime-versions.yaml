@@ -13,7 +13,7 @@ jobs:
   update-runtime-version:
     # Only run this job if the repository is the original example-dags repository on main branch
     # so we don't accidentally update the runtime version in forks / template repositories
-    if: github.repository == 'astronomer/examples'
+    if: github.repository == 'astronomer/templates'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
