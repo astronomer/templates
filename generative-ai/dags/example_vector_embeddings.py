@@ -47,6 +47,7 @@ def get_embeddings_one_word(word):
     schedule="@daily",
     catchup=False,
     max_consecutive_failed_dag_runs=5,  # auto-pauses the DAG after 5 consecutive failed runs
+    max_active_runs=1,
     doc_md=__doc__,
     default_args={"owner": "Astro", "retries": 3},
     tags=["example", "ETL"],
