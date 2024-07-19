@@ -2,14 +2,19 @@
 ## Galaxies ETL example DAG
 
 This example demonstrates an ETL pipeline using Airflow.
-The pipeline extracts data about galaxies, filters the data based on the distance
-from the Milky Way, and loads the filtered data into a DuckDB database.
+The pipeline mocks data extraction for data about galaxies using a modularized 
+function, filters the data based on the distance from the Milky Way, and loads the 
+filtered data into a DuckDB database.
 """
 
-from airflow.decorators import dag, task
+from airflow.decorators import (
+    dag,
+    task,
+)  # This DAG uses the TaskFlow API. See: https://www.astronomer.io/docs/learn/airflow-decorators
 from airflow.models.dataset import Dataset
 from airflow.models.baseoperator import chain
-from pendulum import datetime
+from airflow.models.param import Param
+from pendulum import datetime, duration
 from tabulate import tabulate
 import pandas as pd
 import duckdb
@@ -19,34 +24,64 @@ import os
 # modularize code by importing functions from the include folder
 from include.custom_functions.galaxy_functions import get_galaxy_data
 
-# use the Airflow task logger to log information to the task logs
+# use the Airflow task logger to log information to the task logs (or use print())
 t_log = logging.getLogger("airflow.task")
 
-# define variables used in a DAG in the DAG code or as environment variables for your whole Airflow instance
-# avoid hardcoding values in the DAG code
-_CLOSENESS_THRESHOLD_LIGHT_YEARS = os.getenv("CLOSENESS_THRESHOLD_LIGHT_YEARS", 500000)
-_NUM_GALAXIES_TOTAL = os.getenv("NUM_GALAXIES_TOTAL", 20)
+# define variables used in a DAG as environment variables in .env for your whole Airflow instance
+# to standardize your DAGs
 _DUCKDB_INSTANCE_NAME = os.getenv("DUCKDB_INSTANCE_NAME", "include/astronomy.db")
 _DUCKDB_TABLE_NAME = os.getenv("DUCKDB_TABLE_NAME", "galaxy_data")
 _DUCKDB_TABLE_URI = f"duckdb://{_DUCKDB_INSTANCE_NAME}/{_DUCKDB_TABLE_NAME}"
+_CLOSENESS_THRESHOLD_LY_DEFAULT = os.getenv("CLOSENESS_THRESHOLD_LY_DEFAULT", 500000)
+_CLOSENESS_THRESHOLD_LY_PARAMETER_NAME = "closeness_threshold_light_years"
+_NUM_GALAXIES_TOTAL = os.getenv("NUM_GALAXIES_TOTAL", 20)
+
+# -------------- #
+# DAG Definition #
+# -------------- #
 
 
-# Define the basic parameters of the DAG, like schedule and start_date
+# instantiate a DAG with the @dag decorator and set DAG parameters (see: https://www.astronomer.io/docs/learn/airflow-dag-parameters)
 @dag(
-    start_date=datetime(2024, 5, 1),
-    schedule="@daily",
-    catchup=False,
-    max_consecutive_failed_dag_runs=5,  # auto-pauses the DAG after 5 consecutive failed runs
-    doc_md=__doc__,
-    default_args={"owner": "Astro", "retries": 3},
-    tags=["example", "ETL"],
+    start_date=datetime(2024, 7, 1),  # date after which the DAG can be scheduled
+    schedule="@daily",  # see: https://www.astronomer.io/docs/learn/scheduling-in-airflow for options
+    catchup=False,  # see: https://www.astronomer.io/docs/learn/rerunning-dags#catchup
+    max_consecutive_failed_dag_runs=5,  # auto-pauses the DAG after 5 consecutive failed runs, experimental
+    max_active_runs=1,  # only allow one concurrent run of this DAG, prevents parallel DuckDB calls
+    doc_md=__doc__,  # add DAG Docs in the UI, see https://www.astronomer.io/docs/learn/custom-airflow-ui-docs-tutorial
+    default_args={
+        "owner": "Astro",  # owner of this DAG in the Airflow UI
+        "retries": 3,  # tasks retry 3 times before they fail
+        "retry_delay": duration(seconds=30),  # tasks wait 30s in between retries
+    },  # default_args are applied to all tasks in a DAG
+    tags=["example", "ETL"],  # add tags in the UI
+    params={  # Airflow params can add interactive options on manual runs. See: https://www.astronomer.io/docs/learn/airflow-params
+        _CLOSENESS_THRESHOLD_LY_PARAMETER_NAME: Param(
+            _CLOSENESS_THRESHOLD_LY_DEFAULT,
+            type="number",
+            title="Galaxy Closeness Threshold",
+            description="Set how close galaxies need ot be to the milkyway in order to be loaded to DuckDB.",
+        )
+    },
 )
-def example_etl_galaxies():
-    @task
-    def create_galaxy_table_in_duckdb(
+def example_etl_galaxies():  # by default the dag_id is the name of the decorated function
+
+    # ---------------- #
+    # Task Definitions #
+    # ---------------- #
+    # the @task decorator turns any Python function into an Airflow task
+    # any @task decorated function that is called inside the @dag decorated
+    # function is automatically added to the DAG.
+    # if one exists for your use case you can still use traditional Airflow operators
+    # and mix them with @task decorators. Checkout registry.astronomer.io for available operators
+    # see: https://www.astronomer.io/docs/learn/airflow-decorators for information about @task
+    # see: https://www.astronomer.io/docs/learn/what-is-an-operator for information about traditional operators
+
+    @task(retries=2)  # you can override default_args at the task level
+    def create_galaxy_table_in_duckdb(  # by default the name of the decorated function is the task_id
         duckdb_instance_name: str = _DUCKDB_INSTANCE_NAME,
         table_name: str = _DUCKDB_TABLE_NAME,
-    ):
+    ) -> None:
         """
         Create a table in DuckDB to store galaxy data.
         This task simulates a setup step in an ETL pipeline.
@@ -90,10 +125,7 @@ def example_etl_galaxies():
         return galaxy_df
 
     @task
-    def transform_galaxy_data(
-        galaxy_df: pd.DataFrame,
-        closeness_threshold_light_years: int = _CLOSENESS_THRESHOLD_LIGHT_YEARS,
-    ):
+    def transform_galaxy_data(galaxy_df: pd.DataFrame, **context):
         """
         Filter the galaxy data based on the distance from the Milky Way.
         This task simulates a transformation step in an ETL pipeline.
@@ -104,6 +136,11 @@ def example_etl_galaxies():
         Returns:
             pd.DataFrame: A DataFrame containing filtered galaxy data.
         """
+
+        # retrieve param values from the context
+        closeness_threshold_light_years = context["params"][
+            _CLOSENESS_THRESHOLD_LY_PARAMETER_NAME
+        ]
 
         t_log.info(
             f"Filtering for galaxies closer than {closeness_threshold_light_years} light years."
@@ -116,10 +153,11 @@ def example_etl_galaxies():
         return filtered_galaxy_df
 
     @task(
-        outlets=[
-            Dataset(_DUCKDB_TABLE_URI)
-        ]  # Define that this task updates the `galaxy_data` Dataset
-    )
+        outlets=[Dataset(_DUCKDB_TABLE_URI)]
+    )  # Define that this task produces updates to an Airflow Dataset.
+    # Downstream DAGs can be scheduled based on combinations of Dataset updates
+    # coming from tasks in the same Airflow instance or calls to the Airflow API.
+    # See: https://www.astronomer.io/docs/learn/airflow-datasets
     def load_galaxy_data(
         filtered_galaxy_df: pd.DataFrame,
         duckdb_instance_name: str = _DUCKDB_INSTANCE_NAME,
@@ -148,7 +186,7 @@ def example_etl_galaxies():
     ):
         """
         Get the galaxies stored in the DuckDB database that were filtered
-        based on closeness to the Milky Way.
+        based on closeness to the Milky Way and print them to the logs.
         Args:
             duck_db_conn_id (str): The connection ID for the duckdb database
             where the table is stored.
@@ -164,12 +202,20 @@ def example_etl_galaxies():
         )
         t_log.info(tabulate(near_galaxies_df, headers="keys", tablefmt="pretty"))
 
-    # Define the task dependencies
+    # ------------------------------------ #
+    # Calling tasks + Setting dependencies #
+    # ------------------------------------ #
+
+    # each call of a @task decorated function creates one task in the Airflow UI
+    # passing the return value of one @task decorated function to another one
+    # automatically creates a task dependency
     create_galaxy_table_in_duckdb_obj = create_galaxy_table_in_duckdb()
     extract_galaxy_data_obj = extract_galaxy_data()
     transform_galaxy_data_obj = transform_galaxy_data(extract_galaxy_data_obj)
     load_galaxy_data_obj = load_galaxy_data(transform_galaxy_data_obj)
 
+    # you can set explicit dependencies using the chain function (or bit-shift operators)
+    # See: https://www.astronomer.io/docs/learn/managing-dependencies
     chain(
         create_galaxy_table_in_duckdb_obj, load_galaxy_data_obj, print_loaded_galaxies()
     )
