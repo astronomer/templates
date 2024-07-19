@@ -7,7 +7,10 @@ function, filters the data based on the distance from the Milky Way, and loads t
 filtered data into a DuckDB database.
 """
 
-from airflow.decorators import dag, task  # This DAG uses the TaskFlow API. See: https://www.astronomer.io/docs/learn/airflow-decorators
+from airflow.decorators import (
+    dag,
+    task,
+)  # This DAG uses the TaskFlow API. See: https://www.astronomer.io/docs/learn/airflow-decorators
 from airflow.models.dataset import Dataset
 from airflow.models.baseoperator import chain
 from airflow.models.param import Param
@@ -44,7 +47,7 @@ _NUM_GALAXIES_TOTAL = os.getenv("NUM_GALAXIES_TOTAL", 20)
     schedule="@daily",  # see: https://www.astronomer.io/docs/learn/scheduling-in-airflow for options
     catchup=False,  # see: https://www.astronomer.io/docs/learn/rerunning-dags#catchup
     max_consecutive_failed_dag_runs=5,  # auto-pauses the DAG after 5 consecutive failed runs, experimental
-    max_active_runs=1,  # only allow one concurrent run of this DAG, prevents parallel duckdb calls
+    max_active_runs=1,  # only allow one concurrent run of this DAG, prevents parallel DuckDB calls
     doc_md=__doc__,  # add DAG Docs in the UI, see https://www.astronomer.io/docs/learn/custom-airflow-ui-docs-tutorial
     default_args={
         "owner": "Astro",  # owner of this DAG in the Airflow UI
@@ -69,6 +72,10 @@ def example_etl_galaxies():  # by default the dag_id is the name of the decorate
     # the @task decorator turns any Python function into an Airflow task
     # any @task decorated function that is called inside the @dag decorated
     # function is automatically added to the DAG.
+    # if one exists for your use case you can still use traditional Airflow operators 
+    # and mix them with @task decorators. Checkout registry.astronomer.io for available operators
+    # see: https://www.astronomer.io/docs/learn/airflow-decorators for information about @task 
+    # see: https://www.astronomer.io/docs/learn/what-is-an-operator for information about traditional operators
 
     @task(retries=2)  # you can override default_args at the task level
     def create_galaxy_table_in_duckdb(  # by default the name of the decorated function is the task_id
@@ -202,7 +209,7 @@ def example_etl_galaxies():  # by default the dag_id is the name of the decorate
     # ------------------------------------ #
 
     # each call of a @task decorated function creates one task in the Airflow UI
-    # passing the return value of one @task decorated function to another one 
+    # passing the return value of one @task decorated function to another one
     # automatically creates a task dependency
     create_galaxy_table_in_duckdb_obj = create_galaxy_table_in_duckdb()
     extract_galaxy_data_obj = extract_galaxy_data()
