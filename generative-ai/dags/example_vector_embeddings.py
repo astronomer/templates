@@ -78,9 +78,9 @@ def example_vector_embeddings():  # by default the dag_id is the name of the dec
     # the @task decorator turns any Python function into an Airflow task
     # any @task decorated function that is called inside the @dag decorated
     # function is automatically added to the DAG.
-    # if one exists for your use case you can still use traditional Airflow operators 
+    # if one exists for your use case you can still use traditional Airflow operators
     # and mix them with @task decorators. Checkout registry.astronomer.io for available operators
-    # see: https://www.astronomer.io/docs/learn/airflow-decorators for information about @task 
+    # see: https://www.astronomer.io/docs/learn/airflow-decorators for information about @task
     # see: https://www.astronomer.io/docs/learn/what-is-an-operator for information about traditional operators
 
     @task(retries=2)  # you can override default_args at the task level

@@ -1,4 +1,3 @@
-
 def get_embeddings_one_word(word):
     """
     Embeds a single word using the SentenceTransformers library.

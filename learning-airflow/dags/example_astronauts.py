@@ -21,12 +21,20 @@ first DAG tutorial: https://docs.astronomer.io/learn/get-started-with-airflow
 """
 
 from airflow import Dataset
-from airflow.decorators import dag, task
-from pendulum import datetime
+from airflow.decorators import (
+    dag,
+    task,
+)  # This DAG uses the TaskFlow API. See: https://www.astronomer.io/docs/learn/airflow-decorators
+from pendulum import datetime, duration
 import requests
 
 
-# Define the basic parameters of the DAG, like schedule and start_date
+# -------------- #
+# DAG Definition #
+# -------------- #
+
+
+# instantiate a DAG with the @dag decorator and set DAG parameters (see: https://www.astronomer.io/docs/learn/airflow-dag-parameters)
 @dag(
     start_date=datetime(2024, 1, 1),  # date after which the DAG can be scheduled
     schedule="@daily",  # see: https://www.astronomer.io/docs/learn/scheduling-in-airflow for options
@@ -34,18 +42,31 @@ import requests
     max_consecutive_failed_dag_runs=5,  # auto-pauses the DAG after 5 consecutive failed runs, experimental
     doc_md=__doc__,  # add DAG Docs in the UI, see https://www.astronomer.io/docs/learn/custom-airflow-ui-docs-tutorial
     default_args={
-        "owner": "Astro",
-        "retries": 3, # tasks retry 3 times before they fail
-        "retry_delay" : duration(seconds=5),
+        "owner": "Astro",  # owner of this DAG in the Airflow UI
+        "retries": 3,  # tasks retry 3 times before they fail
+        "retry_delay": duration(seconds=5),  # tasks wait 30s in between retries
     },  # default_args are applied to all tasks in a DAG
-    tags=["example"],
+    tags=["example", "space"],  # add tags in the UI
 )
 def example_astronauts():
-    # Define tasks
+
+    # ---------------- #
+    # Task Definitions #
+    # ---------------- #
+    # the @task decorator turns any Python function into an Airflow task
+    # any @task decorated function that is called inside the @dag decorated
+    # function is automatically added to the DAG.
+    # if one exists for your use case you can still use traditional Airflow operators
+    # and mix them with @task decorators. Checkout registry.astronomer.io for available operators
+    # see: https://www.astronomer.io/docs/learn/airflow-decorators for information about @task
+    # see: https://www.astronomer.io/docs/learn/what-is-an-operator for information about traditional operators
+
     @task(
-        # Define a dataset outlet for the task. This can be used to schedule downstream DAGs when this task has run.
         outlets=[Dataset("current_astronauts")]
-    )  # Define that this task updates the `current_astronauts` Dataset
+    )  # Define that this task produces updates to an Airflow Dataset.
+    # Downstream DAGs can be scheduled based on combinations of Dataset updates
+    # coming from tasks in the same Airflow instance or calls to the Airflow API.
+    # See: https://www.astronomer.io/docs/learn/airflow-datasets]
     def get_astronauts(**context) -> list[dict]:
         """
         This task uses the requests library to retrieve a list of Astronauts
@@ -53,9 +74,18 @@ def example_astronauts():
         so they can be used in a downstream pipeline. The task returns a list
         of Astronauts to be used in the next task.
         """
-        r = requests.get("http://api.open-notify.org/astros.json")
-        number_of_people_in_space = r.json()["number"]
-        list_of_people_in_space = r.json()["people"]
+        try:
+            r = requests.get("http://api.open-notify.org/astros.json")
+            r.raise_for_status()
+            number_of_people_in_space = r.json()["number"]
+            list_of_people_in_space = r.json()["people"]
+        except:
+            print("API currently not available, using hardcoded data instead.")
+            number_of_people_in_space = 12
+            list_of_people_in_space = [
+                {"craft": "ISS", "name": "Marco Alain Sieber"},
+                {"craft": "ISS", "name": "Claude Nicollier"},
+            ]
 
         context["ti"].xcom_push(
             key="number_of_people_in_space", value=number_of_people_in_space
@@ -73,12 +103,21 @@ def example_astronauts():
         craft = person_in_space["craft"]
         name = person_in_space["name"]
 
-        print(f"{name} is currently in space flying on the {craft}! {greeting}")
+        print(f"{name} is in space flying on the {craft}! {greeting}")
 
-    # Use dynamic task mapping to run the print_astronaut_craft task for each
-    # Astronaut in space
+    # ------------------------------------ #
+    # Calling tasks + Setting dependencies #
+    # ------------------------------------ #
+
+    # each call of a @task decorated function creates one task in the Airflow UI
+    # passing the return value of one @task decorated function to another one
+    # automatically creates a task dependency
+
+    # This task uses dynamic task mapping to create a variable number of copies
+    # of the print_astronaut_craft task at runtime in parallel
+    # See: https://www.astronomer.io/docs/learn/dynamic-tasks
     print_astronaut_craft.partial(greeting="Hello! :)").expand(
-        person_in_space=get_astronauts()  # Define dependencies using TaskFlow API syntax
+        person_in_space=get_astronauts()
     )
 
 

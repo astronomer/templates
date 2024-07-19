@@ -72,9 +72,9 @@ def example_etl_galaxies():  # by default the dag_id is the name of the decorate
     # the @task decorator turns any Python function into an Airflow task
     # any @task decorated function that is called inside the @dag decorated
     # function is automatically added to the DAG.
-    # if one exists for your use case you can still use traditional Airflow operators 
+    # if one exists for your use case you can still use traditional Airflow operators
     # and mix them with @task decorators. Checkout registry.astronomer.io for available operators
-    # see: https://www.astronomer.io/docs/learn/airflow-decorators for information about @task 
+    # see: https://www.astronomer.io/docs/learn/airflow-decorators for information about @task
     # see: https://www.astronomer.io/docs/learn/what-is-an-operator for information about traditional operators
 
     @task(retries=2)  # you can override default_args at the task level
@@ -153,13 +153,11 @@ def example_etl_galaxies():  # by default the dag_id is the name of the decorate
         return filtered_galaxy_df
 
     @task(
-        outlets=[
-            Dataset(_DUCKDB_TABLE_URI)
-        ]  # Define that this task produces updates to an Airflow Dataset.
-        # Downstream DAGs can be scheduled based on combinations of Dataset updates
-        # coming from tasks in the same Airflow instance or calls to the Airflow API.
-        # See: https://www.astronomer.io/docs/learn/airflow-datasets
-    )
+        outlets=[Dataset(_DUCKDB_TABLE_URI)]
+    )  # Define that this task produces updates to an Airflow Dataset.
+    # Downstream DAGs can be scheduled based on combinations of Dataset updates
+    # coming from tasks in the same Airflow instance or calls to the Airflow API.
+    # See: https://www.astronomer.io/docs/learn/airflow-datasets
     def load_galaxy_data(
         filtered_galaxy_df: pd.DataFrame,
         duckdb_instance_name: str = _DUCKDB_INSTANCE_NAME,
