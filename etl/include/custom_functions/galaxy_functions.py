@@ -1,9 +1,9 @@
 import pandas as pd
 
 
-def get_galaxy_data(num_galaxies=20):
+def get_galaxy_data(num_galaxies: int = 20) -> pd.DataFrame:
     """
-    Get data about up to 20 galaxies.
+    Get data about up to 20 galaxies. This function mocks an API call.
     Args:
         num_galaxies: number of galaxies requested (default:20)
     """
