@@ -3,7 +3,7 @@
 from cosmos import ProfileConfig
 from pathlib import Path
 
-from constants import jaffle_shop_path
+from include.constants import jaffle_shop_path
 
 airflow_db = ProfileConfig(
     profile_name="airflow_db",
