@@ -8,7 +8,7 @@ with customers as (
 
 orders as (
 
-    select * from {{ ref('bad_table') }}
+    select * from {{ ref('stg_orders') }}
 
 ),
 
