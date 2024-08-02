@@ -22,5 +22,7 @@ duckdb_dag = DbtDag(
     dag_id="duckdb_dag",
     tags=["profiles"],
     # Duckdb adapter-specific parameters
+    # Since duckdb is an in-memory database, we can only run one dbt command at a time
     max_active_runs=1,
+    concurrency=1,
 )
