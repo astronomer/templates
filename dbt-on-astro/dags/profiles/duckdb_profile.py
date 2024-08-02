@@ -1,3 +1,4 @@
+# Airflow DAG for running dbt on the jaffle_shop project using the duckdb adapter.
 from datetime import datetime
 
 from cosmos import DbtDag, ProjectConfig, ProfileConfig
@@ -20,4 +21,6 @@ duckdb_dag = DbtDag(
     catchup=False,
     dag_id="duckdb_dag",
     tags=["profiles"],
+    # Duckdb adapter-specific parameters
+    max_active_runs=1,
 )

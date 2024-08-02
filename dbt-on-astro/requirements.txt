@@ -1,2 +1,2 @@
 astronomer-cosmos==1.5.1
-dbt-duckdb==1.7.3
+dbt-duckdb==1.8.2
