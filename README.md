@@ -11,6 +11,7 @@ Welcome to the Astronomer Templates repository! Launch your journey with Airflow
 
 This repository contains 3 projects for demonstrating the capabilities and use cases of Airflow.
 
+- [dbt on Astro](dbt-on-astro/README.md) A project for using dbt and Airflow together using [Astronomer Cosmos](https://github.com/astronomer/astronomer-cosmos)
 - [ETL](etl/README.md) A project for learning the basics of ETL with Airflow
 - [Generative AI](generative-ai/README.md) A project for learning how to use Airflow to train a generative AI model
 - [Learning Airflow](learning-airflow/README.md) A project for learning the basics of Airflow
