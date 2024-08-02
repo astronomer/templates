@@ -19,3 +19,5 @@ The DAGs in this repo are meant to illustrate how to run dbt in Airflow using Co
 The DAGs fall into three categories:
 
 - Basic: these are the simplest examples of Cosmos
+- Profiles: these show how to customize your dbt profiles using Cosmos
+- Filtering: these show how to use Cosmos to filter which models are run
