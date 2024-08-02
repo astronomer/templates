@@ -5,7 +5,7 @@ from cosmos import DbtDag, ProjectConfig, ProfileConfig
 
 from include.constants import jaffle_shop_path, venv_execution_config
 
-duckdb_dag = DbtDag(
+dbt_cosmos_dag = DbtDag(
     # dbt/cosmos-specific parameters
     project_config=ProjectConfig(jaffle_shop_path),
     profile_config=ProfileConfig(
@@ -19,8 +19,7 @@ duckdb_dag = DbtDag(
     schedule_interval="@daily",
     start_date=datetime(2023, 1, 1),
     catchup=False,
-    dag_id="duckdb_dag",
-    tags=["profiles"],
+    dag_id="dbt_cosmos_dag",
     # Duckdb adapter-specific parameters
     # Since duckdb is an in-memory database, we can only run one dbt command at a time
     max_active_runs=1,
