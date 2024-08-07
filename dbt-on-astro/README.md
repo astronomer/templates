@@ -15,7 +15,7 @@ To learn more about data engineering with Apache Airflow, dbt, and Cosmos, make 
 
 Your Astro project contains the following files and folders:
 
-- dags: This folder contains the Python files for your Airflow DAGs. This directory includes one example DAG:
+- dags: This folder contains the Python files for your Airflow DAGs. This project includes one example DAG:
   - `dbt_cosmos_dag.py`: This DAG sets up [Cosmos](https://github.com/astronomer/astronomer-cosmos), allowing files in the /dbt directory to transform into Airflow tasks and taskgroups.
 - dbt/jaffle_shop: This folder contains the dbt project [jaffle_shop](https://github.com/dbt-labs/jaffle_shop_duckdb), a fictional ecommerce store. Use this as a starting point to learn how dbt and Airflow work together!
 - Dockerfile: This file contains a versioned Astro Runtime Docker image that provides a differentiated Airflow experience. If you want to execute other commands or overrides at runtime, specify them here.
