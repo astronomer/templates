@@ -20,8 +20,8 @@ dbt_cosmos_dag = DbtDag(
     start_date=datetime(2023, 1, 1),
     catchup=False,
     dag_id="dbt_cosmos_dag",
-    # Duckdb adapter-specific parameters
-    # Since duckdb is an in-memory database, we can only run one dbt command at a time
-    max_active_runs=1,
-    concurrency=1,
+    # Warning - DuckDB is not a persistent database between workers. To move this workflow in production,
+    # use a persistent DB and remove the max_active_runs and concurrency parameters below
+    max_active_runs=1,  # only allow one concurrent run of this DAG, prevents parallel DuckDB calls
+    concurrency=1, # only allow a single task execution at a time, prevents parallel DuckDB calls
 )
