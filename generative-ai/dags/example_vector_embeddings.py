@@ -69,7 +69,7 @@ _LIST_OF_WORDS_DEFAULT = ["sun", "rocket", "planet", "light", "happiness"]
         ),
     },
     # Warning - DuckDB is not a persistent database between workers. To move this workflow in production,
-    # use Postgres, MySQL, Snowflake, or another persistent DB
+    # use a persistent DB and remove the max_active_runs and concurrency parameters below
     max_active_runs=1,  # only allow one concurrent run of this DAG, prevents parallel DuckDB calls
     concurrency=1, # only allow a single task execution at a time, prevents parallel DuckDB calls
 )
