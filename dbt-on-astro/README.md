@@ -25,7 +25,7 @@ Your Astro project contains the following files and folders:
 - plugins: Add custom or community plugins for your project to this file. It is empty by default.
 - airflow_settings.yaml: Use this local-only file to specify Airflow Connections, Variables, and Pools instead of entering them in the Airflow UI as you develop DAGs in this project.
 
-# Moving to Production
+# Deploying to Production
 
 ### ❗Warning❗
 This template used DuckDB, an in-memory database, for running dbt transformations. While this is great to learn Airflow, your data is not guaranteed to persist between executions! For production applications, use a _persistent database_ like Postgres, MySQL, Snowflake, or others instead.  
