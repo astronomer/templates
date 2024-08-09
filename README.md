@@ -17,7 +17,7 @@ This repository contains 3 projects for demonstrating the capabilities and use c
 - [Learning Airflow](learning-airflow/README.md) A project for learning the basics of Airflow
 
 ## Purpose of This Repository
-These templates are designed to help new users learn and try Airflow quickly. As you move your workloads into business-critical applications or adopt advanced Airflow features, reach out at to [Astronomer's Airflow experts](https://www.astronomer.io/contact/) to get help deploying to production.
+These templates are designed to help new users learn and try Airflow quickly. As you move your workloads into business-critical applications or adopt advanced Airflow features, reach out to [Astronomer's Airflow experts](https://www.astronomer.io/contact/) to get help deploying to production.
 
 ## Run a Template Locally
 
