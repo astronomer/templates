@@ -16,6 +16,9 @@ This repository contains 3 projects for demonstrating the capabilities and use c
 - [Generative AI](generative-ai/README.md) A project for learning how to use Airflow to train a generative AI model
 - [Learning Airflow](learning-airflow/README.md) A project for learning the basics of Airflow
 
+## Purpose of This Repository
+These templates are designed to help new users learn and try Airflow quickly. As you move your workloads into business-critical applications or adopt advanced Airflow features, reach out to [Astronomer's Airflow experts](https://www.astronomer.io/contact/) to get help deploying to production.
+
 ## Run a Template Locally
 
 1. Navigate to your chosen project by selecting an option in the table of contents above

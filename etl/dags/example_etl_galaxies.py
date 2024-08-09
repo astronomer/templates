@@ -63,6 +63,10 @@ _NUM_GALAXIES_TOTAL = os.getenv("NUM_GALAXIES_TOTAL", 20)
             description="Set how close galaxies need ot be to the milkyway in order to be loaded to DuckDB.",
         )
     },
+    # Warning - in-memory DuckDB is not a persistent database between workers. To move this workflow in production, use a 
+    # cloud-based database and based on concurrency capabilities adjust the two parameters below.
+    max_active_runs=1,  # only allow one concurrent run of this DAG, prevents parallel DuckDB calls
+    concurrency=1, # only allow a single task execution at a time, prevents parallel DuckDB calls
 )
 def example_etl_galaxies():  # by default the dag_id is the name of the decorated function
 

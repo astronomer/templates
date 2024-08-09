@@ -47,7 +47,6 @@ _LIST_OF_WORDS_DEFAULT = ["sun", "rocket", "planet", "light", "happiness"]
     schedule="@daily",  # see: https://www.astronomer.io/docs/learn/scheduling-in-airflow for options
     catchup=False,  # see: https://www.astronomer.io/docs/learn/rerunning-dags#catchup
     max_consecutive_failed_dag_runs=5,  # auto-pauses the DAG after 5 consecutive failed runs, experimental
-    max_active_runs=1,  # only allow one concurrent run of this DAG, prevents parallel DuckDB calls
     doc_md=__doc__,  # add DAG Docs in the UI, see https://www.astronomer.io/docs/learn/custom-airflow-ui-docs-tutorial
     default_args={
         "owner": "Astro",  # owner of this DAG in the Airflow UI
@@ -69,6 +68,10 @@ _LIST_OF_WORDS_DEFAULT = ["sun", "rocket", "planet", "light", "happiness"]
             title="A list of words to compare to the word of interest.",
         ),
     },
+    # Warning - in-memory DuckDB is not a persistent database between workers. To move this workflow in production, use a 
+    # cloud-based database and based on concurrency capabilities adjust the two parameters below.
+    max_active_runs=1,  # only allow one concurrent run of this DAG, prevents parallel DuckDB calls
+    concurrency=1, # only allow a single task execution at a time, prevents parallel DuckDB calls
 )
 def example_vector_embeddings():  # by default the dag_id is the name of the decorated function
 
