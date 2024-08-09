@@ -68,8 +68,8 @@ _LIST_OF_WORDS_DEFAULT = ["sun", "rocket", "planet", "light", "happiness"]
             title="A list of words to compare to the word of interest.",
         ),
     },
-    # Warning - In production, we recommend to use a cloud-based DB over local DuckDB. 
-    # Depending on the concurrency capabilities of your database, adjust the two parameters below.
+    # Warning - in-memory DuckDB is not a persistent database between workers. To move this workflow in production, use a 
+    # cloud-based database and based on concurrency capabilities adjust the two parameters below.
     max_active_runs=1,  # only allow one concurrent run of this DAG, prevents parallel DuckDB calls
     concurrency=1, # only allow a single task execution at a time, prevents parallel DuckDB calls
 )
