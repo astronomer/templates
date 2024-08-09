@@ -28,7 +28,7 @@ Your Astro project contains the following files and folders:
 # Deploying to Production
 
 ### ❗Warning❗
-This template used DuckDB, an in-memory database, for running dbt transformations. While this is great to learn Airflow, your data is not guaranteed to persist between executions! For production applications, use a _persistent database_ like Postgres, MySQL, Snowflake, or others instead.  
+This template used DuckDB, an in-memory database, for running dbt transformations. While this is great to learn Airflow, your data is not guaranteed to persist between executions! For production applications, use a _persistent database_ instead (consider DuckDB's hosted option MotherDuck or another database like Postgres, MySQL, or Snowflake).
 
 
 
