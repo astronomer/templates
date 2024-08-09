@@ -63,7 +63,8 @@ _NUM_GALAXIES_TOTAL = os.getenv("NUM_GALAXIES_TOTAL", 20)
             description="Set how close galaxies need ot be to the milkyway in order to be loaded to DuckDB.",
         )
     },
-    # Warning - DuckDB is not a persistent database between workers. To move this workflow in production,
+    # Warning - In production, we recommend to use a cloud-based DB over local DuckDB. 
+    # Depending on the concurrency capabilities of your database, adjust the two parameters below.
     # use a persistent DB and remove the max_active_runs and concurrency parameters below
     max_active_runs=1,  # only allow one concurrent run of this DAG, prevents parallel DuckDB calls
     concurrency=1, # only allow a single task execution at a time, prevents parallel DuckDB calls
