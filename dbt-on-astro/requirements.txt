@@ -1,1 +1,1 @@
-astronomer-cosmos==1.5.1
+astronomer-cosmos==1.6.0
