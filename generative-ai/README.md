@@ -2,6 +2,8 @@
 
 Apache Airflow is one of the most common orchestration engines for AI/Machine Learning jobs, especially for retrieval-augmented generation (RAG). This template shows an simple example of building vector embeddings for text and then performing a semantic search on the embeddings.
 
+Astronomer is the best place to host Apache Airflow -- try it out with a free trial at [astronomer.io](https://www.astronomer.io/).
+
 # Learning Paths
 
 To learn more about data engineering with Apache Airflow, make a few changes to this project! For example, try one of the following:
