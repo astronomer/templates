@@ -4,6 +4,8 @@ Apache Airflow is one of the most widely-used engines for orchestrating Extract,
 
 This project showcases using dbt and Airflow together with [Cosmos](https://github.com/astronomer/astronomer-cosmos), allowing users to deploy dbt in production with Airflow best-practices.
 
+Astronomer is the best place to host Apache Airflow -- try it out with a free trial at [astronomer.io](https://www.astronomer.io/).
+
 # Learning Paths
 
 To learn more about data engineering with Apache Airflow, dbt, and Cosmos, make a few changes to this project! For example, try one of the following:
