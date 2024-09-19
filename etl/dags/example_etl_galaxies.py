@@ -2,8 +2,8 @@
 ## Galaxies ETL example DAG
 
 This example demonstrates an ETL pipeline using Airflow.
-The pipeline mocks data extraction for data about galaxies using a modularized 
-function, filters the data based on the distance from the Milky Way, and loads the 
+The pipeline mocks data extraction for data about galaxies using a modularized
+function, filters the data based on the distance from the Milky Way, and loads the
 filtered data into a DuckDB database.
 """
 
@@ -63,9 +63,10 @@ _NUM_GALAXIES_TOTAL = os.getenv("NUM_GALAXIES_TOTAL", 20)
             description="Set how close galaxies need ot be to the milkyway in order to be loaded to DuckDB.",
         )
     },
-    # Warning - in-memory DuckDB is not a persistent database between workers. To move this workflow in production, use a 
+    # Warning - in-memory DuckDB is not a persistent database between workers. To move this workflow in production, use a
     # cloud-based database and based on concurrency capabilities adjust the two parameters below.
     concurrency=1, # only allow a single task execution at a time, prevents parallel DuckDB calls
+    is_paused_upon_creation=False, # start running the DAG as soon as its created
 )
 def example_etl_galaxies():  # by default the dag_id is the name of the decorated function
 
