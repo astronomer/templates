@@ -1,8 +1,8 @@
 """
 ## Compute and compare vector embeddings of words
 
-This DAG demonstrates how to compute vector embeddings of words using 
-the SentenceTransformers library and compare the embeddings of a word of 
+This DAG demonstrates how to compute vector embeddings of words using
+the SentenceTransformers library and compare the embeddings of a word of
 interest to a list of words to find the semantically closest match.
 """
 
@@ -68,10 +68,11 @@ _LIST_OF_WORDS_DEFAULT = ["sun", "rocket", "planet", "light", "happiness"]
             title="A list of words to compare to the word of interest.",
         ),
     },
-    # Warning - in-memory DuckDB is not a persistent database between workers. To move this workflow in production, use a 
+    # Warning - in-memory DuckDB is not a persistent database between workers. To move this workflow in production, use a
     # cloud-based database and based on concurrency capabilities adjust the two parameters below.
     max_active_runs=1,  # only allow one concurrent run of this DAG, prevents parallel DuckDB calls
     concurrency=1, # only allow a single task execution at a time, prevents parallel DuckDB calls
+    is_paused_upon_creation=False, # start running the DAG as soon as its created
 )
 def example_vector_embeddings():  # by default the dag_id is the name of the decorated function
 
