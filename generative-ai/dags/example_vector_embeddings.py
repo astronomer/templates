@@ -171,6 +171,7 @@ def example_vector_embeddings():  # by default the dag_id is the name of the dec
         """
 
         cursor = duckdb.connect(duckdb_instance_name)
+        cursor.execute("INSTALL vss;")
         cursor.execute("LOAD vss;")
 
         for i in list_of_words_and_embeddings:
@@ -218,6 +219,7 @@ def example_vector_embeddings():  # by default the dag_id is the name of the dec
         """
 
         cursor = duckdb.connect(duckdb_instance_name)
+        cursor.execute("INSTALL vss;")
         cursor.execute("LOAD vss;")
 
         word = list(word_of_interest_embedding.keys())[0]
