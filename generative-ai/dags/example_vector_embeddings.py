@@ -72,8 +72,8 @@ _LM_DIMENSIONS = os.getenv("LM_DIMS", "384")
     # Warning - in-memory DuckDB is not a persistent database between workers. To move this workflow in production, use a
     # cloud-based database and based on concurrency capabilities adjust the two parameters below.
     max_active_runs=1,  # only allow one concurrent run of this DAG, prevents parallel DuckDB calls
-    concurrency=1, # only allow a single task execution at a time, prevents parallel DuckDB calls
-    is_paused_upon_creation=False, # start running the DAG as soon as its created
+    concurrency=1,  # only allow a single task execution at a time, prevents parallel DuckDB calls
+    is_paused_upon_creation=False,  # start running the DAG as soon as its created
 )
 def example_vector_embeddings():  # by default the dag_id is the name of the decorated function
 
@@ -173,6 +173,7 @@ def example_vector_embeddings():  # by default the dag_id is the name of the dec
         """
 
         cursor = duckdb.connect(duckdb_instance_name)
+        cursor.execute("INSTALL vss;")
         cursor.execute("LOAD vss;")
 
         for i in list_of_words_and_embeddings:
@@ -221,6 +222,7 @@ def example_vector_embeddings():  # by default the dag_id is the name of the dec
         """
 
         cursor = duckdb.connect(duckdb_instance_name)
+        cursor.execute("INSTALL vss;")
         cursor.execute("LOAD vss;")
 
         word = list(word_of_interest_embedding.keys())[0]
