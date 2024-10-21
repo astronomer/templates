@@ -24,8 +24,8 @@ from include.custom_functions.embedding_func import get_embeddings_one_word
 # use the Airflow task logger to log information to the task logs (or use print())
 t_log = logging.getLogger("airflow.task")
 
-# define variables used in a DAG as environment variables in .env for your whole Airflow instance
-# to standardize your DAGs
+# Define variables used in a DAG as environment variables in .env for your whole Airflow instance
+# to standardize your DAGs.
 _DUCKDB_INSTANCE_NAME = os.getenv("DUCKDB_INSTANCE_NAME", "include/astronomy.db")
 _DUCKDB_TABLE_NAME = os.getenv("DUCKDB_TABLE_NAME", "embeddings_table")
 _WORD_OF_INTEREST_PARAMETER_NAME = os.getenv(
@@ -36,13 +36,17 @@ _LIST_OF_WORDS_PARAMETER_NAME = os.getenv(
     "LIST_OF_WORDS_PARAMETER_NAME", "my_list_of_words"
 )
 _LIST_OF_WORDS_DEFAULT = ["sun", "rocket", "planet", "light", "happiness"]
+_LM = os.getenv("LM", "all-MiniLM-L6-v2")
 _LM_DIMENSIONS = os.getenv("LM_DIMS", "384")
+
+
 # -------------- #
 # DAG Definition #
 # -------------- #
 
 
-# instantiate a DAG with the @dag decorator and set DAG parameters (see: https://www.astronomer.io/docs/learn/airflow-dag-parameters)
+# Instantiate a DAG with the @dag decorator and set DAG parameters 
+# (see: https://www.astronomer.io/docs/learn/airflow-dag-parameters).
 @dag(
     start_date=datetime(2024, 5, 1),  # date after which the DAG can be scheduled
     schedule="@daily",  # see: https://www.astronomer.io/docs/learn/scheduling-in-airflow for options
@@ -72,21 +76,23 @@ _LM_DIMENSIONS = os.getenv("LM_DIMS", "384")
     # Warning - in-memory DuckDB is not a persistent database between workers. To move this workflow in production, use a
     # cloud-based database and based on concurrency capabilities adjust the two parameters below.
     max_active_runs=1,  # only allow one concurrent run of this DAG, prevents parallel DuckDB calls
-    concurrency=1,  # only allow a single task execution at a time, prevents parallel DuckDB calls
-    is_paused_upon_creation=False,  # start running the DAG as soon as its created
+    concurrency=1, # only allow a single task execution at a time, prevents parallel DuckDB calls
+    is_paused_upon_creation=False, # start running the DAG as soon as its created
 )
 def example_vector_embeddings():  # by default the dag_id is the name of the decorated function
 
     # ---------------- #
     # Task Definitions #
     # ---------------- #
-    # the @task decorator turns any Python function into an Airflow task
-    # any @task decorated function that is called inside the @dag decorated
+    # The @task decorator turns any Python function into an Airflow task.
+    # Any @task-decorated function that is called inside the @dag-decorated
     # function is automatically added to the DAG.
-    # if one exists for your use case you can still use traditional Airflow operators
-    # and mix them with @task decorators. Checkout registry.astronomer.io for available operators
-    # see: https://www.astronomer.io/docs/learn/airflow-decorators for information about @task
-    # see: https://www.astronomer.io/docs/learn/what-is-an-operator for information about traditional operators
+    # 
+    # If one exists for your use case, you can still use traditional Airflow operators
+    # and mix them with @task decorators. Check out registry.astronomer.io for available operators.
+    #
+    # See: https://www.astronomer.io/docs/learn/airflow-decorators for information about the @task decorator.
+    # See: https://www.astronomer.io/docs/learn/what-is-an-operator for information about traditional operators.
 
     @task(retries=2)  # you can override default_args at the task level
     def get_words(
@@ -114,10 +120,11 @@ def example_vector_embeddings():  # by default the dag_id is the name of the dec
         """
 
         list_of_words_and_embeddings = []
+        lm = _LM
 
         for word in list_of_words:
             word_and_embeddings = get_embeddings_one_word(
-                word
+                lm, word
             )  # using the modularized function in the include folder
             list_of_words_and_embeddings.append(word_and_embeddings)
 
@@ -144,18 +151,23 @@ def example_vector_embeddings():  # by default the dag_id is the name of the dec
         cursor.execute("SET hnsw_enable_experimental_persistence = true;")
 
         table_name = "embeddings_table"
-
+        
         cursor.execute(
             f"""
             CREATE OR REPLACE TABLE {table_name} (
                 text STRING,
                 vec FLOAT[{lm_dims}]
             );
+            """
+        )
 
+        cursor.execute(
+            f"""
             -- Create an HNSW index on the embedding vector
             CREATE INDEX my_hnsw_index ON {table_name} USING HNSW (vec);
             """
         )
+
         cursor.close()
 
     @task
@@ -173,7 +185,6 @@ def example_vector_embeddings():  # by default the dag_id is the name of the dec
         """
 
         cursor = duckdb.connect(duckdb_instance_name)
-        cursor.execute("INSTALL vss;")
         cursor.execute("LOAD vss;")
 
         for i in list_of_words_and_embeddings:
@@ -197,8 +208,9 @@ def example_vector_embeddings():  # by default the dag_id is the name of the dec
             dict: A dictionary with the word as key and the embeddings as value.
         """
 
+        lm = _LM
         my_word_of_interest = context["params"][_WORD_OF_INTEREST_PARAMETER_NAME]
-        embeddings = get_embeddings_one_word(my_word_of_interest)
+        embeddings = get_embeddings_one_word(lm, my_word_of_interest)
 
         embeddings = embeddings[my_word_of_interest]
 
@@ -222,7 +234,6 @@ def example_vector_embeddings():  # by default the dag_id is the name of the dec
         """
 
         cursor = duckdb.connect(duckdb_instance_name)
-        cursor.execute("INSTALL vss;")
         cursor.execute("LOAD vss;")
 
         word = list(word_of_interest_embedding.keys())[0]
@@ -244,16 +255,16 @@ def example_vector_embeddings():  # by default the dag_id is the name of the dec
         return top_3
 
     # ------------------------------------ #
-    # Calling tasks + Setting dependencies #
+    # Calling tasks + setting dependencies #
     # ------------------------------------ #
 
-    # each call of a @task decorated function creates one task in the Airflow UI
-    # passing the return value of one @task decorated function to another one
-    # automatically creates a task dependency
+    # Each call of a @task-decorated function creates one task in the Airflow UI.
+    # Passing the return value of one @task-decorated function to another one
+    # automatically creates a task dependency.
     create_embeddings_obj = create_embeddings(list_of_words=get_words())
     embed_word_obj = embed_word()
 
-    # you can set explicit dependencies using the chain function (or bit-shift operators)
+    # You can set explicit dependencies using the chain function (or bit-shift operators).
     # See: https://www.astronomer.io/docs/learn/managing-dependencies
     chain(
         create_vector_table(),
