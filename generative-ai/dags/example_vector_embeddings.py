@@ -6,12 +6,8 @@ the SentenceTransformers library and compare the embeddings of a word of
 interest to a list of words to find the semantically closest match.
 """
 
-from airflow.decorators import (
-    dag,
-    task,
-)  # This DAG uses the TaskFlow API. See: https://www.astronomer.io/docs/learn/airflow-decorators
-from airflow.models.baseoperator import chain
-from airflow.models.param import Param
+  # This DAG uses the TaskFlow API. See: https://www.astronomer.io/docs/learn/airflow-decorators
+from airflow.sdk import Asset, chain, Param, dag, task
 from pendulum import datetime, duration
 from tabulate import tabulate
 import duckdb
@@ -48,9 +44,8 @@ _LM_DIMENSIONS = os.getenv("LM_DIMS", "384")
 # Instantiate a DAG with the @dag decorator and set DAG parameters 
 # (see: https://www.astronomer.io/docs/learn/airflow-dag-parameters).
 @dag(
-    start_date=datetime(2024, 5, 1),  # date after which the DAG can be scheduled
+    start_date=datetime(2025, 4, 1),  # date after which the DAG can be scheduled
     schedule="@daily",  # see: https://www.astronomer.io/docs/learn/scheduling-in-airflow for options
-    catchup=False,  # see: https://www.astronomer.io/docs/learn/rerunning-dags#catchup
     max_consecutive_failed_dag_runs=5,  # auto-pauses the DAG after 5 consecutive failed runs, experimental
     doc_md=__doc__,  # add DAG Docs in the UI, see https://www.astronomer.io/docs/learn/custom-airflow-ui-docs-tutorial
     default_args={
@@ -76,7 +71,6 @@ _LM_DIMENSIONS = os.getenv("LM_DIMS", "384")
     # Warning - in-memory DuckDB is not a persistent database between workers. To move this workflow in production, use a
     # cloud-based database and based on concurrency capabilities adjust the two parameters below.
     max_active_runs=1,  # only allow one concurrent run of this DAG, prevents parallel DuckDB calls
-    concurrency=1, # only allow a single task execution at a time, prevents parallel DuckDB calls
     is_paused_upon_creation=False, # start running the DAG as soon as its created
 )
 def example_vector_embeddings():  # by default the dag_id is the name of the decorated function
