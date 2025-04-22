@@ -20,11 +20,8 @@ first DAG tutorial: https://docs.astronomer.io/learn/get-started-with-airflow
 ![Picture of the ISS](https://www.esa.int/var/esa/storage/images/esa_multimedia/images/2010/02/space_station_over_earth/10293696-3-eng-GB/Space_Station_over_Earth_card_full.jpg)
 """
 
-from airflow import Dataset
-from airflow.decorators import (
-    dag,
-    task,
-)  # This DAG uses the TaskFlow API. See: https://www.astronomer.io/docs/learn/airflow-decorators
+ # This DAG uses the TaskFlow API. See: https://www.astronomer.io/docs/learn/airflow-decorators
+from airflow.sdk import Asset, dag, task
 from pendulum import datetime, duration
 import requests
 
@@ -36,9 +33,8 @@ import requests
 
 # instantiate a DAG with the @dag decorator and set DAG parameters (see: https://www.astronomer.io/docs/learn/airflow-dag-parameters)
 @dag(
-    start_date=datetime(2024, 1, 1),  # date after which the DAG can be scheduled
+    start_date=datetime(2025, 4, 1),  # date after which the DAG can be scheduled
     schedule="@daily",  # see: https://www.astronomer.io/docs/learn/scheduling-in-airflow for options
-    catchup=False,  # see: https://www.astronomer.io/docs/learn/rerunning-dags#catchup
     max_consecutive_failed_dag_runs=5,  # auto-pauses the DAG after 5 consecutive failed runs, experimental
     doc_md=__doc__,  # add DAG Docs in the UI, see https://www.astronomer.io/docs/learn/custom-airflow-ui-docs-tutorial
     default_args={
@@ -63,7 +59,7 @@ def example_astronauts():
     # see: https://www.astronomer.io/docs/learn/what-is-an-operator for information about traditional operators
 
     @task(
-        outlets=[Dataset("current_astronauts")]
+        outlets=[Asset("current_astronauts")]
     )  # Define that this task produces updates to an Airflow Dataset.
     # Downstream DAGs can be scheduled based on combinations of Dataset updates
     # coming from tasks in the same Airflow instance or calls to the Airflow API.
