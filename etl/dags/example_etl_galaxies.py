@@ -6,14 +6,8 @@ The pipeline mocks data extraction for data about galaxies using a modularized
 function, filters the data based on the distance from the Milky Way, and loads the
 filtered data into a DuckDB database.
 """
-
-from airflow.decorators import (
-    dag,
-    task,
-)  # This DAG uses the TaskFlow API. See: https://www.astronomer.io/docs/learn/airflow-decorators
-from airflow.models.dataset import Dataset
-from airflow.models.baseoperator import chain
-from airflow.models.param import Param
+  # This DAG uses the TaskFlow API. See: https://www.astronomer.io/docs/learn/airflow-decorators
+from airflow.sdk import Asset, chain, Param, dag, task
 from pendulum import datetime, duration
 from tabulate import tabulate
 import pandas as pd
@@ -43,9 +37,8 @@ _NUM_GALAXIES_TOTAL = os.getenv("NUM_GALAXIES_TOTAL", 20)
 
 # instantiate a DAG with the @dag decorator and set DAG parameters (see: https://www.astronomer.io/docs/learn/airflow-dag-parameters)
 @dag(
-    start_date=datetime(2024, 7, 1),  # date after which the DAG can be scheduled
+    start_date=datetime(2025, 4, 1),  # date after which the DAG can be scheduled
     schedule="@daily",  # see: https://www.astronomer.io/docs/learn/scheduling-in-airflow for options
-    catchup=False,  # see: https://www.astronomer.io/docs/learn/rerunning-dags#catchup
     max_consecutive_failed_dag_runs=5,  # auto-pauses the DAG after 5 consecutive failed runs, experimental
     max_active_runs=1,  # only allow one concurrent run of this DAG, prevents parallel DuckDB calls
     doc_md=__doc__,  # add DAG Docs in the UI, see https://www.astronomer.io/docs/learn/custom-airflow-ui-docs-tutorial
@@ -65,7 +58,6 @@ _NUM_GALAXIES_TOTAL = os.getenv("NUM_GALAXIES_TOTAL", 20)
     },
     # Warning - in-memory DuckDB is not a persistent database between workers. To move this workflow in production, use a
     # cloud-based database and based on concurrency capabilities adjust the two parameters below.
-    concurrency=1, # only allow a single task execution at a time, prevents parallel DuckDB calls
     is_paused_upon_creation=False, # start running the DAG as soon as its created
 )
 def example_etl_galaxies():  # by default the dag_id is the name of the decorated function
@@ -95,6 +87,8 @@ def example_etl_galaxies():  # by default the dag_id is the name of the decorate
         """
 
         t_log.info("Creating galaxy table in DuckDB.")
+
+        os.makedirs(os.path.dirname(duckdb_instance_name), exist_ok=True)
 
         cursor = duckdb.connect(duckdb_instance_name)
 
@@ -157,7 +151,7 @@ def example_etl_galaxies():  # by default the dag_id is the name of the decorate
         return filtered_galaxy_df
 
     @task(
-        outlets=[Dataset(_DUCKDB_TABLE_URI)]
+        outlets=[Asset(_DUCKDB_TABLE_URI)]
     )  # Define that this task produces updates to an Airflow Dataset.
     # Downstream DAGs can be scheduled based on combinations of Dataset updates
     # coming from tasks in the same Airflow instance or calls to the Airflow API.
