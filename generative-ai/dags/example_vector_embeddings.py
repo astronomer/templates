@@ -136,7 +136,8 @@ def example_vector_embeddings():  # by default the dag_id is the name of the dec
             duckdb_instance_name (str): The name of the DuckDB instance.
             table_name (str): The name of the table to create.
         """
-
+        
+        os.makedirs(os.path.dirname(duckdb_instance_name), exist_ok=True)
         cursor = duckdb.connect(duckdb_instance_name)
 
         # setting up DuckDB to store vectors
