@@ -1,1 +1,1 @@
-FROM astrocrpublic.azurecr.io/runtime:3.0-5
+FROM astrocrpublic.azurecr.io/runtime:3.0-6
