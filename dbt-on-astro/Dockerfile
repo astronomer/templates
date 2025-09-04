@@ -1,4 +1,4 @@
-FROM astrocrpublic.azurecr.io/runtime:3.0-8
+FROM astrocrpublic.azurecr.io/runtime:3.0-10
 
 # install dbt into a virtual environment
 RUN python -m venv dbt_venv && source dbt_venv/bin/activate && \
