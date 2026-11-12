@@ -1,0 +1,28 @@
+{
+  "description": "Pretty-print JSON row results from an Airflow Variable (dbt, DuckDB ETL, or similar) as a table in the task logs.",
+  "properties": {
+    "source_variable": {
+      "description": "Airflow Variable containing a JSON array of objects (e.g. dbt rows or Custom Moon Data ETL output). Pretty-printed as an aligned table in the logs.",
+      "title": "Source Variable",
+      "type": "string"
+    },
+    "blueprint": {
+      "type": "string",
+      "const": "print",
+      "description": "The blueprint template to use"
+    },
+    "version": {
+      "type": "integer",
+      "const": 1,
+      "description": "The blueprint version"
+    }
+  },
+  "required": [
+    "blueprint",
+    "version",
+    "source_variable"
+  ],
+  "title": "Print",
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}

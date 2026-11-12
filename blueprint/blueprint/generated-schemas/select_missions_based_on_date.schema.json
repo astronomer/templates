@@ -1,0 +1,41 @@
+{
+  "description": "Select missions based on date configuration.",
+  "properties": {
+    "source_csv": {
+      "default": "include/moon_missions.csv",
+      "description": "Path to the moon missions CSV relative to the project root",
+      "title": "Source Csv",
+      "type": "string"
+    },
+    "date_variable": {
+      "default": "my_date",
+      "description": "Airflow Variable name containing the target date",
+      "title": "Date Variable",
+      "type": "string"
+    },
+    "grain": {
+      "default": "closest",
+      "description": "How to match missions: 'closest' (single nearest), 'year' (same calendar year), or 'decade' (same decade)",
+      "pattern": "^(closest|year|decade)$",
+      "title": "Grain",
+      "type": "string"
+    },
+    "blueprint": {
+      "type": "string",
+      "const": "select_missions_based_on_date",
+      "description": "The blueprint template to use"
+    },
+    "version": {
+      "type": "integer",
+      "const": 1,
+      "description": "The blueprint version"
+    }
+  },
+  "required": [
+    "blueprint",
+    "version"
+  ],
+  "title": "Select missions based on date",
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}

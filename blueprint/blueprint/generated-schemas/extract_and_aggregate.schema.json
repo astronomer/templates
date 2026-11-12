@@ -1,0 +1,53 @@
+{
+  "description": "Extract CSV merchandise (or similar) data and aggregate revenue by calendar week, month, or quarter. Stores one small JSON row per period in an Airflow Variable.",
+  "properties": {
+    "source_csv": {
+      "default": "include/moon_merch_sales.csv",
+      "description": "Path to the source CSV relative to the project root",
+      "title": "Source Csv",
+      "type": "string"
+    },
+    "grain": {
+      "default": "month",
+      "description": "Calendar bucket for aggregation: week (ISO), month, or quarter",
+      "pattern": "^(week|month|quarter)$",
+      "title": "Grain",
+      "type": "string"
+    },
+    "date_column": {
+      "default": "order_date",
+      "description": "Column containing dates to bucket (cast to DATE in SQL)",
+      "title": "Date Column",
+      "type": "string"
+    },
+    "revenue_column": {
+      "default": "line_revenue_usd",
+      "description": "Numeric column to sum as revenue",
+      "title": "Revenue Column",
+      "type": "string"
+    },
+    "target_variable": {
+      "default": "merch_revenue_by_period",
+      "description": "Airflow Variable name for the JSON aggregate (one row per period)",
+      "title": "Target Variable",
+      "type": "string"
+    },
+    "blueprint": {
+      "type": "string",
+      "const": "extract_and_aggregate",
+      "description": "The blueprint template to use"
+    },
+    "version": {
+      "type": "integer",
+      "const": 1,
+      "description": "The blueprint version"
+    }
+  },
+  "required": [
+    "blueprint",
+    "version"
+  ],
+  "title": "Extract and aggregate",
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}

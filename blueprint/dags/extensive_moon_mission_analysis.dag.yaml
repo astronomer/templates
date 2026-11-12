@@ -1,0 +1,133 @@
+dag_id: extensive_moon_mission_analysis
+schedule: "@weekly"
+description: "Comprehensive moon mission analysis -- explores, validates, runs ETL branches in parallel, builds dbt models, and finds notable missions"
+tags: [analysis, moon-missions, blueprint, showcase]
+
+steps:
+  # ── Stage 1: Explore & Validate ─────────────────────────────────
+  explore_raw_data:
+    blueprint: explore_raw_data
+    source_csv: include/moon_missions.csv
+    num_rows: 10
+    print_schema: true
+
+  validate_source:
+    blueprint: sql_data_quality_check
+    depends_on: [explore_raw_data]
+    source_csv: include/moon_missions.csv
+    unique_columns: [mission_number]
+    not_null_columns: [mission_name, launch_date, country, outcome]
+    table_checks:
+      - "COUNT(*) >= 100"
+
+  # ── Branch A: Statistics cascade ────────────────────────────────
+  summary_stats:
+    blueprint: custom_moon_data_etl
+    depends_on: [validate_source]
+    source_csv: include/moon_missions.csv
+    sql: >
+      SELECT
+        COUNT(*) AS total_missions,
+        COUNT(*) FILTER (WHERE outcome = 'Success') AS successful,
+        COUNT(*) FILTER (WHERE outcome != 'Success') AS not_successful,
+        COUNT(*) FILTER (WHERE crewed = true) AS crewed,
+        COUNT(*) FILTER (WHERE crewed = false) AS uncrewed
+      FROM moon_missions
+    target_variable: analysis_summary
+
+  country_breakdown:
+    blueprint: custom_moon_data_etl
+    depends_on: [summary_stats]
+    source_csv: include/moon_missions.csv
+    sql: >
+      SELECT
+        country,
+        COUNT(*) AS total_missions,
+        COUNT(*) FILTER (WHERE outcome = 'Success') AS successful,
+        ROUND(100.0 * COUNT(*) FILTER (WHERE outcome = 'Success') / COUNT(*), 1) AS success_rate_pct
+      FROM moon_missions
+      GROUP BY country
+      ORDER BY total_missions DESC
+    target_variable: analysis_country_breakdown
+
+  decade_trends:
+    blueprint: custom_moon_data_etl
+    depends_on: [country_breakdown]
+    source_csv: include/moon_missions.csv
+    sql: >
+      SELECT
+        (EXTRACT(YEAR FROM CAST(launch_date AS DATE)) / 10 * 10)::INT AS decade,
+        COUNT(*) AS total_missions,
+        COUNT(*) FILTER (WHERE outcome = 'Success') AS successful,
+        ROUND(100.0 * COUNT(*) FILTER (WHERE outcome = 'Success') / COUNT(*), 1) AS success_rate_pct
+      FROM moon_missions
+      GROUP BY decade
+      ORDER BY decade
+    target_variable: analysis_decade_trends
+
+  failure_breakdown:
+    blueprint: custom_moon_data_etl
+    depends_on: [decade_trends]
+    source_csv: include/moon_missions.csv
+    sql: >
+      SELECT
+        outcome,
+        COUNT(*) AS occurrences,
+        ROUND(100.0 * COUNT(*) / SUM(COUNT(*)) OVER (), 1) AS pct_of_total
+      FROM moon_missions
+      WHERE outcome != 'Success'
+      GROUP BY outcome
+      ORDER BY occurrences DESC
+    target_variable: analysis_failure_breakdown
+
+  # ── Branch B: Recent data pipeline ──────────────────────────────
+  recent_missions:
+    blueprint: custom_moon_data_etl
+    depends_on: [validate_source]
+    source_csv: include/moon_missions.csv
+    sql: >
+      SELECT mission_name, launch_date, country, spacecraft, outcome
+      FROM moon_missions
+      WHERE launch_date >= '2020-01-01'
+      ORDER BY launch_date DESC
+    target_variable: analysis_recent_missions
+
+  validate_recent:
+    blueprint: sql_data_quality_check
+    depends_on: [recent_missions]
+    source_csv: include/moon_missions.csv
+    not_null_columns: [spacecraft, carrier_rocket]
+    table_checks:
+      - "COUNT(*) FILTER (WHERE launch_date >= '2020-01-01') >= 5"
+
+  explore_recent:
+    blueprint: explore_raw_data
+    depends_on: [validate_recent]
+    source_csv: include/moon_missions.csv
+    num_rows: 20
+    print_schema: false
+
+  # ── Branch C: dbt + Apollo ──────────────────────────────────────
+  run_dbt_models:
+    blueprint: run_dbt_project_with_cosmos
+    depends_on: [validate_source]
+    full_refresh: true
+    target_variable: analysis_spacecraft_outcomes
+
+  print_spacecraft_outcomes:
+    blueprint: print
+    depends_on: [run_dbt_models]
+    source_variable: analysis_spacecraft_outcomes
+
+  set_star_trek_date:
+    blueprint: enter_date
+    depends_on: [print_spacecraft_outcomes]
+    date: "1966-09-08"
+    variable_name: star_trek_premiere
+
+  nearest_mission:
+    blueprint: select_missions_based_on_date
+    depends_on: [set_star_trek_date]
+    source_csv: include/moon_missions.csv
+    date_variable: star_trek_premiere
+    grain: closest

@@ -1,0 +1,35 @@
+{
+  "description": "Enter date configuration.",
+  "properties": {
+    "date": {
+      "default": "1990-12-19",
+      "description": "A date in YYYY-MM-DD format (e.g. your birthday)",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+      "title": "Date",
+      "type": "string"
+    },
+    "variable_name": {
+      "default": "my_date",
+      "description": "Airflow Variable name to store the date in",
+      "title": "Variable Name",
+      "type": "string"
+    },
+    "blueprint": {
+      "type": "string",
+      "const": "enter_date",
+      "description": "The blueprint template to use"
+    },
+    "version": {
+      "type": "integer",
+      "const": 1,
+      "description": "The blueprint version"
+    }
+  },
+  "required": [
+    "blueprint",
+    "version"
+  ],
+  "title": "Enter date",
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}

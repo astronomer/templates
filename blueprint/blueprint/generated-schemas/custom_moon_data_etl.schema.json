@@ -1,0 +1,40 @@
+{
+  "description": "Custom Moon Data ETL configuration.",
+  "properties": {
+    "source_csv": {
+      "default": "include/moon_missions.csv",
+      "description": "Path to the source CSV file relative to the project root (e.g. 'include/moon_missions.csv')",
+      "title": "Source Csv",
+      "type": "string"
+    },
+    "sql": {
+      "default": "SELECT * FROM moon_missions WHERE launch_date >= '2023-12-19'",
+      "description": "SQL query to run against the CSV data via DuckDB. The CSV is available as a table named after the file (e.g. 'moon_missions' for moon_missions.csv).",
+      "title": "Transformation SQL Query",
+      "type": "string"
+    },
+    "target_variable": {
+      "default": "moon_etl_result",
+      "description": "Airflow Variable name to store the query result in",
+      "title": "Target Variable",
+      "type": "string"
+    },
+    "blueprint": {
+      "type": "string",
+      "const": "custom_moon_data_etl",
+      "description": "The blueprint template to use"
+    },
+    "version": {
+      "type": "integer",
+      "const": 1,
+      "description": "The blueprint version"
+    }
+  },
+  "required": [
+    "blueprint",
+    "version"
+  ],
+  "title": "Custom Moon Data ETL",
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}

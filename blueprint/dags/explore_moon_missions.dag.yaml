@@ -1,0 +1,11 @@
+dag_id: explore_moon_mission_raw_data
+schedule: "@monthly"
+description: "Explore the moon missions dataset -- view the schema and sample rows"
+tags: [explorer, moon-missions, blueprint]
+
+steps:
+  explore:
+    blueprint: explore_raw_data
+    source_csv: include/moon_missions.csv
+    num_rows: 5
+    print_schema: true

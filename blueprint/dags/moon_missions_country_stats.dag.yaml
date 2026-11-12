@@ -1,0 +1,41 @@
+dag_id: get_moon_mission_country_stats
+schedule: "@daily"
+description: "Per-country mission statistics and most common attributes across all moon missions"
+tags: [etl, quality, moon-missions, blueprint]
+
+steps:
+  quality_checks:
+    blueprint: sql_data_quality_check
+    source_csv: include/moon_missions.csv
+    not_null_columns: [country, mission_name]
+    unique_columns: [mission_number]
+    table_checks:
+      - "COUNT(*) >= 100"
+
+  country_stats:
+    blueprint: custom_moon_data_etl
+    depends_on: [quality_checks]
+    source_csv: include/moon_missions.csv
+    sql: >
+      SELECT
+        country,
+        COUNT(*) AS total_missions,
+        COUNT(*) FILTER (WHERE outcome = 'Success') AS successful,
+        COUNT(*) FILTER (WHERE outcome != 'Success') AS not_successful,
+        ROUND(100.0 * COUNT(*) FILTER (WHERE outcome = 'Success') / COUNT(*), 1) AS success_rate_pct
+      FROM moon_missions
+      GROUP BY country
+      ORDER BY total_missions DESC
+    target_variable: country_mission_stats
+
+  most_common:
+    blueprint: custom_moon_data_etl
+    depends_on: [quality_checks]
+    source_csv: include/moon_missions.csv
+    sql: >
+      SELECT
+        (SELECT country FROM moon_missions GROUP BY country ORDER BY COUNT(*) DESC LIMIT 1) AS most_common_country,
+        (SELECT operator FROM moon_missions GROUP BY operator ORDER BY COUNT(*) DESC LIMIT 1) AS most_common_operator,
+        (SELECT carrier_rocket FROM moon_missions GROUP BY carrier_rocket ORDER BY COUNT(*) DESC LIMIT 1) AS most_common_carrier_rocket,
+        (SELECT spacecraft FROM moon_missions GROUP BY spacecraft ORDER BY COUNT(*) DESC LIMIT 1) AS most_common_spacecraft
+    target_variable: most_common_attributes

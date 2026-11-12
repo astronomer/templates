@@ -1,0 +1,27 @@
+# Solution Dag for the merch tutorial: aggregate from CSV → validate loaded JSON → print.
+# Use this as the answer key; create your own .dag.yaml in the IDE to practice.
+
+dag_id: solution_blueprint_tutorial
+schedule: null
+description: "Solution: moon-merch year — ETL by month, quality on Variable payload, pretty-print to logs"
+tags: [ecommerce, moon-merch, blueprint, duckdb, tutorial, solution]
+
+steps:
+  revenue_by_period:
+    blueprint: extract_and_aggregate
+    source_csv: include/moon_merch_sales.csv
+    grain: month
+    target_variable: merch_revenue_by_period
+
+  validate_loaded_aggregate:
+    blueprint: row_count_check
+    depends_on: [revenue_by_period]
+    source_variable: merch_revenue_by_period
+    min_rows: 12
+    not_null_keys: [period_start, revenue_usd]
+    unique_keys: [period_start]
+
+  print_revenue:
+    blueprint: print
+    depends_on: [validate_loaded_aggregate]
+    source_variable: merch_revenue_by_period

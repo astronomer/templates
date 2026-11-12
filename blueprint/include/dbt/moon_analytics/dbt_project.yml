@@ -1,0 +1,15 @@
+name: moon_analytics
+version: '1.0.0'
+
+profile: moon_analytics
+
+model-paths: ["models"]
+
+models:
+  moon_analytics:
+    staging:
+      +materialized: view
+    intermediate:
+      +materialized: view
+    marts:
+      +materialized: table

@@ -1,0 +1,61 @@
+{
+  "description": "SQL data quality check: column and table checks on a CSV via DuckDB.",
+  "properties": {
+    "source_csv": {
+      "default": "include/moon_missions.csv",
+      "description": "Path to the CSV file relative to the project root",
+      "title": "Source Csv",
+      "type": "string"
+    },
+    "not_null_columns": {
+      "default": ["mission_name", "launch_date", "country", "outcome"],
+      "description": "Column names to check for non-null values",
+      "items": {
+        "type": "string"
+      },
+      "title": "Not Null Columns",
+      "type": "array"
+    },
+    "unique_columns": {
+      "default": ["mission_number"],
+      "description": "Column names to check for uniqueness",
+      "items": {
+        "type": "string"
+      },
+      "title": "Unique Columns",
+      "type": "array"
+    },
+    "table_checks": {
+      "default": ["COUNT(*) >= 100"],
+      "description": "List of SQL expressions that must evaluate to true (e.g. 'COUNT(*) >= 100')",
+      "items": {
+        "type": "string"
+      },
+      "title": "Table Checks",
+      "type": "array"
+    },
+    "min_rows": {
+      "description": "Optional minimum row count: adds COUNT(*) >= min_rows to the table checks (e.g. expect a full year of order lines)",
+      "minimum": 1,
+      "title": "Min Rows",
+      "type": "integer"
+    },
+    "blueprint": {
+      "type": "string",
+      "const": "sql_data_quality_check",
+      "description": "The blueprint template to use"
+    },
+    "version": {
+      "type": "integer",
+      "const": 1,
+      "description": "The blueprint version"
+    }
+  },
+  "required": [
+    "blueprint",
+    "version"
+  ],
+  "title": "SQL data quality check",
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}

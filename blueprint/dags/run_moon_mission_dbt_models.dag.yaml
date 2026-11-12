@@ -1,0 +1,15 @@
+dag_id: run_moon_mission_dbt_models
+schedule: "@daily"
+description: "Run dbt models to analyze moon mission outcomes by spacecraft using Astronomer Cosmos and DuckDB"
+tags: [dbt, cosmos, moon-missions, blueprint]
+
+steps:
+  run_dbt:
+    blueprint: run_dbt_project_with_cosmos
+    full_refresh: true
+    target_variable: dbt_spacecraft_outcomes
+
+  print_results:
+    blueprint: print
+    depends_on: [run_dbt]
+    source_variable: dbt_spacecraft_outcomes

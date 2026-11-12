@@ -1,0 +1,27 @@
+dag_id: get_moon_mission_summary_stats_with_quality_checks
+schedule: "@daily"
+description: "ETL pipeline with data quality checks -- validates the CSV before computing statistics"
+tags: [etl, quality, moon-missions, blueprint]
+
+steps:
+  quality_checks:
+    blueprint: sql_data_quality_check
+    source_csv: include/moon_missions.csv
+    unique_columns: [mission_number]
+    not_null_columns: [mission_name, launch_date, country, outcome]
+    table_checks:
+      - "COUNT(*) >= 100"
+
+  summarize:
+    blueprint: custom_moon_data_etl
+    depends_on: [quality_checks]
+    source_csv: include/moon_missions.csv
+    sql: >
+      SELECT
+        COUNT(*) AS total_missions,
+        COUNT(*) FILTER (WHERE outcome = 'Success') AS successful,
+        COUNT(*) FILTER (WHERE outcome != 'Success') AS not_successful,
+        COUNT(*) FILTER (WHERE crewed = true) AS crewed,
+        COUNT(*) FILTER (WHERE crewed = false) AS uncrewed
+      FROM moon_missions
+    target_variable: moon_missions_summary

@@ -1,0 +1,18 @@
+dag_id: get_moon_mission_summary_stats
+schedule: "@daily"
+description: "Extract moon mission data from CSV, compute summary statistics, and store in an Airflow Variable"
+tags: [etl, moon-missions, blueprint]
+
+steps:
+  extract_and_summarize:
+    blueprint: custom_moon_data_etl
+    source_csv: include/moon_missions.csv
+    sql: >
+      SELECT
+        COUNT(*) AS total_missions,
+        COUNT(*) FILTER (WHERE outcome = 'Success') AS successful,
+        COUNT(*) FILTER (WHERE outcome != 'Success') AS not_successful,
+        COUNT(*) FILTER (WHERE crewed = true) AS crewed,
+        COUNT(*) FILTER (WHERE crewed = false) AS uncrewed
+      FROM moon_missions
+    target_variable: moon_missions_summary

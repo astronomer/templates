@@ -1,0 +1,23 @@
+dag_id: moon_missions_hitl
+schedule: null
+description: "Pick one or more spacecraft and view their mission details -- includes a human-in-the-loop approval step"
+tags: [interactive, hitl, moon-missions, blueprint]
+
+steps:
+  pick_spacecraft:
+    blueprint: add_human_in_the_loop_step
+    source_csv: include/moon_missions.csv
+    column: spacecraft
+    subject: "Choose a Spacecraft"
+    body: >
+      Select one or more spacecraft to learn about their moon missions.
+
+      The full list is drawn from the dataset automatically.
+    multiple: true
+    variable_name: selected_spacecraft
+
+  show_missions:
+    blueprint: query_based_on_human_selection
+    depends_on: [pick_spacecraft]
+    source_csv: include/moon_missions.csv
+    selection_variable: selected_spacecraft

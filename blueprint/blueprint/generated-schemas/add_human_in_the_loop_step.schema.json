@@ -1,0 +1,58 @@
+{
+  "description": "Add Human in the loop step. Presents selectable options from a CSV column and stores the user's choice in an Airflow Variable.",
+  "properties": {
+    "source_csv": {
+      "default": "include/moon_missions.csv",
+      "description": "Path to the CSV file relative to the project root",
+      "title": "Source Csv",
+      "type": "string"
+    },
+    "column": {
+      "default": "spacecraft",
+      "description": "CSV column whose unique values become the selectable options",
+      "title": "Column",
+      "type": "string"
+    },
+    "subject": {
+      "default": "Choose an option",
+      "description": "Title shown to the user in the HITL prompt",
+      "title": "Subject",
+      "type": "string"
+    },
+    "body": {
+      "default": "Select one or more options from the list below",
+      "description": "Description shown to the user in the HITL prompt (supports markdown)",
+      "title": "Body",
+      "type": "string"
+    },
+    "multiple": {
+      "default": true,
+      "description": "Allow selecting multiple options",
+      "title": "Multiple",
+      "type": "boolean"
+    },
+    "variable_name": {
+      "default": "hitl_selection",
+      "description": "Airflow Variable name to store the selection in",
+      "title": "Variable Name",
+      "type": "string"
+    },
+    "blueprint": {
+      "type": "string",
+      "const": "add_human_in_the_loop_step",
+      "description": "The blueprint template to use"
+    },
+    "version": {
+      "type": "integer",
+      "const": 1,
+      "description": "The blueprint version"
+    }
+  },
+  "required": [
+    "blueprint",
+    "version"
+  ],
+  "title": "Add Human in the loop step",
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}

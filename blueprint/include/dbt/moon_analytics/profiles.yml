@@ -1,0 +1,6 @@
+moon_analytics:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: /tmp/moon_analytics.duckdb

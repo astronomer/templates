@@ -1,0 +1,149 @@
+mission_number,mission_name,launch_date,country,operator,carrier_rocket,spacecraft,mission_type,outcome,crewed,description
+1,Pioneer 0,1958-08-17,United States,USAF,Thor DM-18 Able I,Pioneer 0,Orbiter,Launch failure,false,First attempted launch beyond Earth orbit; turbopump gearbox malfunction caused first-stage explosion
+2,Luna E-1 No.1,1958-09-23,Soviet Union,OKB-1,Luna,Luna E-1 No.1,Impactor,Launch failure,false,Rocket disintegrated due to excessive vibration
+3,Luna E-1 No.2,1958-10-11,Soviet Union,OKB-1,Luna,Luna E-1 No.2,Impactor,Launch failure,false,Carrier rocket exploded due to excessive vibration
+4,Pioneer 1,1958-10-11,United States,NASA,Thor DM-18 Able I,Pioneer 1,Orbiter,Launch failure,false,Premature second-stage cutoff due to accelerometer failure
+5,Pioneer 2,1958-11-08,United States,NASA,Thor DM-18 Able I,Pioneer 2,Orbiter,Launch failure,false,Premature second-stage cutoff; third stage failed to ignite
+6,Luna E-1 No.3,1958-12-04,Soviet Union,OKB-1,Luna,Luna E-1 No.3,Impactor,Launch failure,false,Seal failure in hydrogen peroxide pump cooling system
+7,Pioneer 3,1958-12-06,United States,NASA,Juno II,Pioneer 3,Flyby,Launch failure,false,Premature first-stage cutoff
+8,Luna 1,1959-01-02,Soviet Union,OKB-1,Luna,Luna 1,Impactor,Partial failure,false,First spacecraft to fly by the Moon; guidance problem prevented impact
+9,Pioneer 4,1959-03-03,United States,NASA,Juno II,Pioneer 4,Flyby,Partial failure,false,First U.S. spacecraft to leave Earth orbit; flyby at greater altitude than expected
+10,Luna E-1A No.1,1959-06-18,Soviet Union,OKB-1,Luna,E-1A No.1,Impactor,Launch failure,false,Guidance system malfunction
+11,Luna 2,1959-09-12,Soviet Union,OKB-1,Luna,Luna 2,Impactor,Success,false,First spacecraft to impact the lunar surface
+12,Luna 3,1959-10-04,Soviet Union,OKB-1,Luna,Luna 3,Flyby,Success,false,Returned first images of the far side of the Moon
+13,Pioneer P-3,1959-11-26,United States,NASA,Atlas-D Able,Pioneer P-3,Orbiter,Launch failure,false,Payload fairing disintegrated due to design fault
+14,Luna E-3 No.1,1960-04-15,Soviet Union,OKB-1,Luna,Luna E-3 No.1,Flyby,Launch failure,false,Premature third-stage cutoff
+15,Luna E-3 No.2,1960-04-16,Soviet Union,OKB-1,Luna,Luna E-3 No.2,Flyby,Launch failure,false,Rocket disintegrated ten seconds after launch
+16,Pioneer P-30,1960-09-25,United States,NASA,Atlas-D Able,Pioneer P-30,Orbiter,Launch failure,false,Second-stage oxidizer system malfunction
+17,Pioneer P-31,1960-12-15,United States,NASA,Atlas-D Able,Pioneer P-31,Orbiter,Launch failure,false,Exploded 68 seconds after launch
+18,Ranger 3,1962-01-26,United States,NASA,Atlas LV-3 Agena-B,Ranger 3,Impactor,Spacecraft failure,false,Guidance problem; missed the Moon by 36793 km
+19,Ranger 4,1962-04-23,United States,NASA,Atlas LV-3 Agena-B,Ranger 4,Impactor,Spacecraft failure,false,Failed to deploy solar panels; first spacecraft to impact the far side of the Moon
+20,Ranger 5,1962-10-18,United States,NASA,Atlas LV-3 Agena-B,Ranger 5,Impactor,Spacecraft failure,false,Solar panels erroneously disengaged from power system
+21,Luna E-6 No.2,1963-01-04,Soviet Union,OKB-1,Molniya-L,Luna E-6 No.2,Lander,Launch failure,false,Guidance system power failure prevented upper-stage ignition
+22,Luna E-6 No.3,1963-02-03,Soviet Union,OKB-1,Molniya-L,Luna E-6 No.3,Lander,Launch failure,false,Guidance failure prevented orbit
+23,Luna 4,1963-04-02,Soviet Union,OKB-1,Molniya-L,Luna 4,Lander,Spacecraft failure,false,Failed to perform mid-course correction
+24,Ranger 6,1964-01-30,United States,NASA,Atlas LV-3 Agena-B,Ranger 6,Impactor,Spacecraft failure,false,Impacted Moon but failed to return images due to power system failure
+25,Luna E-6 No.6,1964-03-21,Soviet Union,OKB-1,Molniya-M,Luna E-6 No.6,Lander,Launch failure,false,Third stage underperformed due to oxidiser valve failure
+26,Luna E-6 No.5,1964-04-20,Soviet Union,OKB-1,Molniya-M,Luna E-6 No.5,Lander,Launch failure,false,Power failure caused premature third-stage cutoff
+27,Ranger 7,1964-07-28,United States,NASA,Atlas LV-3 Agena-B,Ranger 7,Impactor,Success,false,Successful impact on 30 July 1964
+28,Ranger 8,1965-02-17,United States,NASA,Atlas LV-3 Agena-B,Ranger 8,Impactor,Success,false,Successful impact on 20 February 1965
+29,Kosmos 60,1965-03-12,Soviet Union,Lavochkin,Molniya-L,Kosmos 60,Lander,Launch failure,false,Upper stage failed to restart due to guidance system short circuit
+30,Ranger 9,1965-03-21,United States,NASA,Atlas LV-3 Agena-B,Ranger 9,Impactor,Success,false,Successful impact on 24 March 1965
+31,Luna E-6 No.8,1965-04-10,Soviet Union,Lavochkin,Molniya-L,Luna E-6 No.8,Lander,Spacecraft failure,false,Third stage failed to ignite due to loss of oxidiser pressure
+32,Luna 5,1965-05-09,Soviet Union,Lavochkin,Molniya-M,Luna 5,Lander,Spacecraft failure,false,Gyroscope malfunction caused loss of control; impacted Moon
+33,Luna 6,1965-06-08,Soviet Union,Lavochkin,Molniya-M,Luna 6,Lander,Spacecraft failure,false,Engine failed to shut down after mid-course correction
+34,Zond 3,1965-07-18,Soviet Union,Lavochkin,Molniya,Zond 3,Flyby,Success,false,Flew past the Moon at 9200 km distance; technology demonstration
+35,Luna 7,1965-10-04,Soviet Union,Lavochkin,Molniya,Luna 7,Lander,Spacecraft failure,false,Attitude control failure prevented controlled descent
+36,Luna 8,1965-12-03,Soviet Union,Lavochkin,Molniya,Luna 8,Lander,Spacecraft failure,false,Landing airbag punctured causing loss of attitude control
+37,Luna 9,1966-01-31,Soviet Union,Lavochkin,Molniya-M,Luna 9,Lander,Success,false,First spacecraft to land successfully on the Moon
+38,Kosmos 111,1966-03-01,Soviet Union,Lavochkin,Molniya-M,Kosmos 111,Orbiter,Launch failure,false,Upper stage lost attitude control and failed to ignite
+39,Luna 10,1966-03-31,Soviet Union,Lavochkin,Molniya-M,Luna 10,Orbiter,Success,false,First spacecraft to orbit the Moon
+40,Surveyor 1,1966-05-30,United States,NASA,Atlas LV-3C Centaur-D,Surveyor 1,Lander,Success,false,Second country to successfully soft land on the Moon
+41,Explorer 33,1966-07-01,United States,NASA,Delta E1,Explorer 33,Orbiter,Launch failure,false,Magnetospheric probe; rocket overperformed preventing lunar orbit insertion
+42,Lunar Orbiter 1,1966-08-10,United States,NASA,Atlas SLV-3 Agena-D,Lunar Orbiter 1,Orbiter,Partial failure,false,Deorbited early due to lack of fuel
+43,Luna 11,1966-08-21,Soviet Union,Lavochkin,Molniya-M,Luna 11,Orbiter,Partial failure,false,Failed to return images but other instruments operated correctly
+44,Surveyor 2,1966-09-20,United States,NASA,Atlas LV-3C Centaur-D,Surveyor 2,Lander,Spacecraft failure,false,One thruster failed to ignite during mid-course correction
+45,Luna 12,1966-10-22,Soviet Union,Lavochkin,Molniya-M,Luna 12,Orbiter,Success,false,Completed photography mission intended for Luna 11
+46,Lunar Orbiter 2,1966-11-06,United States,NASA,Atlas SLV-3 Agena-D,Lunar Orbiter 2,Orbiter,Success,false,Photographic mapping mission of the Moon
+47,Luna 13,1966-12-21,Soviet Union,Lavochkin,Molniya-M,Luna 13,Lander,Success,false,Successfully landed and studied the lunar soil
+48,Lunar Orbiter 3,1967-02-05,United States,NASA,Atlas SLV-3 Agena-D,Lunar Orbiter 3,Orbiter,Success,false,Photographic survey of the lunar surface
+49,Surveyor 3,1967-04-17,United States,NASA,Atlas LV-3C Centaur-D,Surveyor 3,Lander,Success,false,Visited by Apollo 12 astronauts in 1969
+50,Lunar Orbiter 4,1967-05-04,United States,NASA,Atlas SLV-3 Agena-D,Lunar Orbiter 4,Orbiter,Success,false,Mapping mission of the lunar surface
+51,Surveyor 4,1967-07-14,United States,NASA,Atlas LV-3C Centaur-D,Surveyor 4,Lander,Spacecraft failure,false,Contact lost 2.5 minutes before scheduled landing
+52,Explorer 35,1967-07-19,United States,NASA,Delta E1,Explorer 35,Orbiter,Success,false,Magnetospheric probe studying the Moon and interplanetary space
+53,Lunar Orbiter 5,1967-08-01,United States,NASA,Atlas SLV-3 Agena-D,Lunar Orbiter 5,Orbiter,Success,false,Final mission in the Lunar Orbiter series
+54,Surveyor 5,1967-09-08,United States,NASA,Atlas SLV-3C Centaur-D,Surveyor 5,Lander,Success,false,Landed in Mare Tranquillitatis
+55,Soyuz 7K-L1 No.4L,1967-09-27,Soviet Union,Lavochkin,Proton-K/D,Soyuz 7K-L1 No.4L,Flyby,Spacecraft failure,false,Crewed mission technology test; first-stage engine failed to ignite
+56,Surveyor 6,1967-11-07,United States,NASA,Atlas SLV-3C Centaur-D,Surveyor 6,Lander,Success,false,Made brief flight from lunar surface followed by second landing
+57,Soyuz 7K-L1 No.5L,1967-11-22,Soviet Union,Lavochkin,Proton-K/D,Soyuz 7K-L1 No.5L,Flyby,Launch failure,false,Crewed mission technology test; second-stage engine failed to ignite
+58,Surveyor 7,1968-01-07,United States,NASA,Atlas SLV-3C Centaur-D,Surveyor 7,Lander,Success,false,Final Surveyor mission; landed near Tycho crater
+59,Luna E-6LS No.112,1968-02-07,Soviet Union,Lavochkin,Molniya-M,Luna E-6LS No.112,Orbiter,Launch failure,false,Failed to orbit after third stage ran out of fuel
+60,Luna 14,1968-04-07,Soviet Union,Lavochkin,Molniya-M,Luna 14,Orbiter,Success,false,Tested communications for proposed crewed missions
+61,Soyuz 7K-L1 No.7L,1968-04-22,Soviet Union,Lavochkin,Proton-K/D,Soyuz 7K-L1 No.7L,Flyby,Launch failure,false,Crewed mission technology test; second-stage engine incorrectly shut down
+62,Zond 5,1968-09-14,Soviet Union,Lavochkin,Proton-K/D,Zond 5,Flyby,Success,false,First lunar spacecraft recovered successfully; carried tortoises around the Moon
+63,Zond 6,1968-11-10,Soviet Union,Lavochkin,Proton-K/D,Zond 6,Flyby,Spacecraft failure,false,Recovered on Earth but cabin depressurization destroyed film
+64,Apollo 8,1968-12-21,United States,NASA,Saturn V,Apollo 8 CSM,Orbiter,Success,true,First crewed spacecraft to orbit the Moon
+65,Zond 1969A,1969-01-20,Soviet Union,Lavochkin,Proton-K/D,Zond 1969A,Flyby,Launch failure,false,Failed to orbit; second-stage failure
+66,Luna E-8 No.201,1969-02-19,Soviet Union,Lavochkin,Proton-K/D,Luna E-8 No.201,Lander,Launch failure,false,First Lunokhod rover launch attempt; vehicle disintegrated 51 seconds after launch
+67,Soyuz 7K-L1S No.3,1969-02-21,Soviet Union,OKB-1,N1,Soyuz 7K-L1S No.3,Orbiter,Launch failure,false,First N1 rocket launch; first stage shut down prematurely 70 seconds after launch
+68,Apollo 10,1969-05-18,United States,NASA,Saturn V,Apollo 10 CSM/LM,Orbiter,Success,true,Dress rehearsal for Apollo 11; Lunar Module descended to 14.3 km above surface
+69,Luna E-8-5 No.402,1969-06-14,Soviet Union,Lavochkin,Proton-K/D,Luna E-8-5 No.402,Sample return,Launch failure,false,Payload fairing separation failure
+70,Soyuz 7K-L1S No.5,1969-07-03,Soviet Union,OKB-1,N1,Soyuz 7K-L1S No.5,Orbiter,Launch failure,false,N1 rocket engines shut down 10 seconds after launch; crashed on launch pad
+71,Luna 15,1969-07-13,Soviet Union,Lavochkin,Proton-K/D,Luna 15,Sample return,Spacecraft failure,false,Crashed into the Moon while Apollo 11 astronauts were on the surface
+72,Apollo 11,1969-07-16,United States,NASA,Saturn V,Apollo 11 CSM/LM,Lander,Success,true,First crewed Moon landing; Neil Armstrong first human on the Moon
+73,Zond 7,1969-08-07,Soviet Union,Lavochkin,Proton-K/D,Zond 7,Flyby,Success,false,Successfully photographed Moon and returned to Earth
+74,Kosmos 300,1969-09-23,Soviet Union,Lavochkin,Proton-K/D,Kosmos 300,Sample return,Launch failure,false,Failed to leave low Earth orbit
+75,Kosmos 305,1969-10-22,Soviet Union,Lavochkin,Proton-K/D,Kosmos 305,Sample return,Launch failure,false,Failed to leave low Earth orbit
+76,Apollo 12,1969-11-14,United States,NASA,Saturn V,Apollo 12 CSM/LM,Lander,Success,true,Second crewed Moon landing; visited Surveyor 3
+77,Luna E-8-5 No.405,1970-02-06,Soviet Union,Lavochkin,Proton-K/D,Luna E-8-5 No.405,Sample return,Launch failure,false,Failed to orbit during lunar sample return attempt
+78,Apollo 13,1970-04-11,United States,NASA,Saturn V,Apollo 13 CSM/LM,Lander,Spacecraft failure,true,Oxygen tank explosion; crew returned safely without landing
+79,Luna 16,1970-09-12,Soviet Union,Lavochkin,Proton-K/D,Luna 16,Sample return,Success,false,First robotic sample return from the Moon
+80,Zond 8,1970-10-20,Soviet Union,Lavochkin,Proton-K/D,Zond 8,Flyby,Success,false,Final Zond lunar flyby mission
+81,Luna 17,1970-11-10,Soviet Union,Lavochkin,Proton-K/D,Luna 17,Lander,Success,false,Delivered Lunokhod 1 - first successful lunar rover
+82,Apollo 14,1971-01-31,United States,NASA,Saturn V,Apollo 14 CSM/LM,Lander,Success,true,Third crewed Moon landing; Fra Mauro highlands
+83,Apollo 15,1971-07-26,United States,NASA,Saturn V,Apollo 15 CSM/LM,Lander,Success,true,Fourth crewed landing; first use of Lunar Roving Vehicle
+84,PFS-1,1971-07-26,United States,NASA,Saturn V,PFS-1,Orbiter,Success,false,Particles and Fields sub-satellite deployed from Apollo 15
+85,Luna 18,1971-09-02,Soviet Union,Lavochkin,Proton-K/D,Luna 18,Lander,Spacecraft failure,false,Crashed during landing attempt in mountainous terrain
+86,Luna 19,1971-09-28,Soviet Union,Lavochkin,Proton-K/D,Luna 19,Orbiter,Success,false,Studied lunar gravitational field and photography
+87,Luna 20,1972-02-14,Soviet Union,Lavochkin,Proton-K/D,Luna 20,Sample return,Success,false,Second robotic sample return from the Moon
+88,Apollo 16,1972-04-16,United States,NASA,Saturn V,Apollo 16 CSM/LM,Lander,Success,true,Fifth crewed landing; Descartes Highlands
+89,PFS-2,1972-04-16,United States,NASA,Saturn V,PFS-2,Orbiter,Success,false,Particles and Fields sub-satellite deployed from Apollo 16
+90,Soyuz 7K-LOK No.1,1972-11-23,Soviet Union,OKB-1,N1,Soyuz 7K-LOK No.1,Orbiter,Launch failure,false,Final N1 launch attempt; intended to orbit the Moon and return
+91,Apollo 17,1972-12-07,United States,NASA,Saturn V,Apollo 17 CSM/LM,Lander,Success,true,Sixth and last crewed Moon landing; Taurus-Littrow valley
+92,Luna 21,1973-01-08,Soviet Union,Lavochkin,Proton-K/D,Luna 21,Lander,Success,false,Delivered Lunokhod 2 rover; covered 39 km on lunar surface
+93,Explorer 49,1973-06-10,United States,NASA,Delta 1913,Explorer 49,Orbiter,Success,false,Radio astronomy satellite placed in lunar orbit
+94,Mariner 10,1973-11-03,United States,NASA,Atlas Centaur,Mariner 10,Flyby,Success,false,Interplanetary probe; mapped lunar north pole during flyby en route to Venus and Mercury
+95,Luna 22,1974-05-29,Soviet Union,Lavochkin,Proton-K/D,Luna 22,Orbiter,Success,false,Photography and scientific study of the Moon
+96,Luna 23,1974-10-28,Soviet Union,Lavochkin,Proton-K/D,Luna 23,Sample return,Partial failure,false,Drilling mechanism damaged during landing; tipped on landing and sample return was precluded
+97,Luna E-8-5M No.412,1975-10-16,Soviet Union,Lavochkin,Proton-K/D,Luna E-8-5M No.412,Sample return,Launch failure,false,Failed to orbit during lunar sample return attempt
+98,Luna 24,1976-08-09,Soviet Union,Lavochkin,Proton-K/D,Luna 24,Sample return,Success,false,Last Soviet lunar mission; returned 170g of lunar soil
+99,ISEE-3,1978-08-12,United States,NASA,Delta 2914,ISEE-3,Flyby,Success,false,Five lunar gravity-assist flybys in 1982-1983 en route to comet Giacobini-Zinner
+100,Hiten,1990-01-24,Japan,ISAS,Mu-3SII,Hiten,Flyby,Success,false,First Japanese lunar mission; released Hagoromo sub-satellite
+101,Geotail,1992-07-24,Japan/United States,ISAS/NASA,Delta II,Geotail,Flyby,Success,false,Magnetospheric probe; series of lunar flybys to regulate high Earth orbit
+102,Clementine,1994-01-25,United States,BMDO/NASA,Titan IIG,Clementine,Orbiter,Success,false,Mapped the entire lunar surface; discovered potential water ice at poles
+103,WIND,1994-11-01,United States,NASA,Delta II,WIND,Flyby,Success,false,Solar wind probe; two lunar flybys to reach Earth-Sun L1 Lagrangian point
+104,HGS-1,1997-12-24,United States,Hughes,Proton-K,HGS-1,Flyby,Success,false,Communications satellite; two lunar flybys to reach geosynchronous orbit after wrong orbit delivery
+105,Lunar Prospector,1998-01-07,United States,NASA,Athena II,Lunar Prospector,Orbiter,Success,false,Detected hydrogen at lunar poles suggesting water ice deposits
+106,Nozomi,1998-07-03,Japan,ISAS,M-V,Nozomi,Flyby,Success,false,Mars probe; two lunar flybys en route to Mars
+107,WMAP,2001-06-30,United States,NASA,Delta II,WMAP,Flyby,Success,false,Cosmic microwave background probe; lunar flyby to reach Earth-Sun L2 Lagrangian point
+108,SMART-1,2003-09-27,Europe,ESA,Ariane 5,SMART-1,Orbiter,Success,false,First ESA mission to the Moon; tested ion propulsion
+109,STEREO,2006-10-25,United States,NASA,Delta II,STEREO,Flyby,Success,false,Twin solar observation spacecraft; lunar flybys en route to heliocentric orbit
+110,ARTEMIS,2007-02-17,United States,NASA,Delta II,ARTEMIS P1,Orbiter,Operational,false,Two THEMIS spacecraft redirected to lunar orbit in 2011 for extended magnetospheric mission
+111,Kaguya,2007-09-14,Japan,JAXA,H-IIA,Kaguya,Orbiter,Success,false,High-definition mapping of the lunar surface
+112,Chang'e 1,2007-10-24,China,CNSA,Long March 3A,Chang'e 1,Orbiter,Success,false,First Chinese lunar mission; mapped the Moon
+113,Chandrayaan-1,2008-10-22,India,ISRO,PSLV-XL,Chandrayaan-1,Orbiter,Success,false,Discovered water molecules on lunar surface; orbit shorter than planned but mission achieved most objectives
+114,LCROSS,2009-06-18,United States,NASA,Atlas V 401,LCROSS,Impactor,Success,false,Confirmed presence of water ice in permanently shadowed craters
+115,Lunar Reconnaissance Orbiter,2009-06-18,United States,NASA,Atlas V 401,LRO,Orbiter,Success,false,High-resolution mapping of the Moon; ongoing mission
+116,Chang'e 2,2010-10-01,China,CNSA,Long March 3C,Chang'e 2,Orbiter,Success,false,Higher resolution mapping than Chang'e 1
+117,GRAIL,2011-09-10,United States,NASA,Delta II 7920H-10C,GRAIL A & B,Orbiter,Success,false,Twin spacecraft mapped lunar gravitational field
+118,LADEE,2013-09-07,United States,NASA,Minotaur V,LADEE,Orbiter,Success,false,Studied the lunar exosphere and dust environment
+119,Chang'e 3,2013-12-01,China,CNSA,Long March 3B,Chang'e 3,Lander,Success,false,First soft landing on Moon since 1976; deployed Yutu rover
+120,4M,2014-10-23,Luxembourg,LuxSpace,Long March 3C/G2,4M,Flyby,Success,false,First commercial mission to the Moon
+121,Chang'e 5-T1,2014-10-23,China,CNSA,Long March 3C/G2,Chang'e 5-T1,Flyby,Success,false,Technology demonstration for Chang'e 5 sample return
+122,TESS,2018-04-18,United States,NASA,Falcon 9 Full Thrust,TESS,Flyby,Success,false,Lunar gravity-assist flyby on 17 May 2018 to reach high Earth survey orbit for exoplanet search
+123,Queqiao,2018-05-21,China,CNSA,Long March 4C,Queqiao,Orbiter,Success,false,Relay satellite enabling communication with Chang'e 4 on the far side of the Moon
+124,Chang'e 4,2018-12-07,China,CNSA,Long March 3B,Chang'e 4,Lander,Success,false,First landing on the far side of the Moon; deployed Yutu-2 rover
+125,Beresheet,2019-02-22,Israel,SpaceIL,Falcon 9,Beresheet,Lander,Spacecraft failure,false,First privately funded lunar lander; crashed during landing
+126,Chandrayaan-2,2019-07-22,India,ISRO,GSLV Mk III,Chandrayaan-2,Orbiter,Partial failure,false,Orbiter successful but Vikram lander crashed during descent
+127,Chang'e 5,2020-11-23,China,CNSA,Long March 5,Chang'e 5,Sample return,Success,false,Returned 1731g of lunar samples to Earth
+128,CAPSTONE,2022-06-28,United States,NASA,Electron,CAPSTONE,Orbiter,Success,false,Tested near-rectilinear halo orbit for Gateway station
+129,Danuri,2022-08-04,South Korea,KARI,Falcon 9,Danuri,Orbiter,Success,false,First South Korean lunar mission
+130,Artemis I,2022-11-16,United States,NASA,SLS Block 1,Orion,Flyby,Success,false,Uncrewed test flight of SLS and Orion spacecraft around the Moon
+131,Hakuto-R M1,2022-12-11,Japan,ispace,Falcon 9,Hakuto-R M1,Lander,Spacecraft failure,false,Commercial lander; crashed due to altitude estimation error
+132,Lunar Flashlight,2022-12-11,United States,NASA,Falcon 9,Lunar Flashlight,Orbiter,Spacecraft failure,false,CubeSat to map lunar south pole water ice; thruster issues prevented planned orbit
+133,JUICE,2023-04-14,Europe,ESA,Ariane 5 ECA,JUICE,Flyby,Success,false,Lunar flyby on 19 August 2024 en route to Jupiter (Jupiter Icy Moons Explorer)
+134,Chandrayaan-3,2023-07-14,India,ISRO,LVM3,Chandrayaan-3,Lander,Success,false,India became fourth country to soft land on the Moon
+135,Luna 25,2023-08-10,Russia,Roscosmos,Soyuz-2.1b,Luna 25,Lander,Spacecraft failure,false,First Russian lunar mission since 1976; crashed into the Moon
+136,SLIM,2023-09-06,Japan,JAXA,H-IIA,SLIM,Lander,Success,false,Precision landing on 19 Jan 2024; Japan became fifth country to soft land on the Moon
+137,Peregrine Mission One,2024-01-08,United States,Astrobotic Technology,Vulcan Centaur,Peregrine,Lander,Spacecraft failure,false,First Vulcan Centaur launch; propellant leak prevented lunar landing
+138,Odysseus (IM-1),2024-02-14,United States,Intuitive Machines,Falcon 9,Odysseus,Lander,Success,false,First commercial soft landing on the Moon (Nova-C); lander tipped on a slope but survived and payloads operated
+139,DRO A/B,2024-03-13,China,CAS,Long March 2C,DRO-A,Orbiter,Partial failure,false,Satellite pair to test distant retrograde orbit; upper stage failed but spacecraft recovered
+140,Queqiao-2,2024-03-20,China,CNSA,Long March 8,Queqiao-2,Orbiter,Success,false,Relay satellite supporting future Chinese south pole lunar missions
+141,Chang'e 6,2024-05-03,China,CNSA,Long March 5,Chang'e 6,Sample return,Success,false,First sample return from the far side of the Moon
+142,Blue Ghost M1,2025-01-15,United States,Firefly Aerospace,Falcon 9,Blue Ghost,Lander,Success,false,Commercial lunar lander carrying NASA payloads
+143,Hakuto-R M2,2025-01-15,Japan,ispace,Falcon 9,Hakuto-R M2,Lander,Spacecraft failure,false,Second ispace commercial lander; crashed during landing attempt
+144,Brokkr-2,2025-02-27,United States,AstroForge,Falcon 9,Brokkr-2,Flyby,Spacecraft failure,false,Asteroid probe intended to flyby near-Earth asteroid 2022 OB5; communication failure
+145,Chimera-1,2025-02-27,United States,Epic Aerospace,Falcon 9,Chimera-1,Flyby,Success,false,Space tug that performed trans-lunar injection en route to geosynchronous orbit
+146,Lunar Trailblazer,2025-02-27,United States,NASA,Falcon 9,Lunar Trailblazer,Orbiter,Spacecraft failure,false,Lunar water mapping orbiter; communication failure after launch
+147,Resilience (IM-2),2025-02-27,United States,Intuitive Machines,Falcon 9,Athena,Lander,Partial failure,false,Second Intuitive Machines lunar lander mission
+148,Artemis II,2026-04-01,United States,NASA,SLS Block 1,Orion,Flyby,Operational,true,First crewed lunar flyby since Apollo 17; four astronauts on free-return trajectory

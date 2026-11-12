@@ -1,0 +1,52 @@
+{
+  "description": "Row count check: validate JSON row lists in an Airflow Variable (post-ETL) — minimum row count, required non-null keys, and unique keys.",
+  "properties": {
+    "source_variable": {
+      "default": "merch_revenue_by_period",
+      "description": "Airflow Variable containing a JSON array of row objects from an upstream ETL step",
+      "title": "Source Variable",
+      "type": "string"
+    },
+    "min_rows": {
+      "description": "Require at least this many rows in the JSON array",
+      "minimum": 1,
+      "title": "Min Rows",
+      "type": "integer"
+    },
+    "not_null_keys": {
+      "default": [],
+      "description": "Object keys that must be present and non-null in every row",
+      "items": {
+        "type": "string"
+      },
+      "title": "Not Null Keys",
+      "type": "array"
+    },
+    "unique_keys": {
+      "default": [],
+      "description": "Object keys whose values must be unique across rows (e.g. period bucket)",
+      "items": {
+        "type": "string"
+      },
+      "title": "Unique Keys",
+      "type": "array"
+    },
+    "blueprint": {
+      "type": "string",
+      "const": "row_count_check",
+      "description": "The blueprint template to use"
+    },
+    "version": {
+      "type": "integer",
+      "const": 1,
+      "description": "The blueprint version"
+    }
+  },
+  "required": [
+    "blueprint",
+    "version"
+  ],
+  "title": "Row count check",
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}

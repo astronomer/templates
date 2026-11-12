@@ -1,0 +1,58 @@
+{
+  "description": "Configuration for running dbt models via Cosmos.",
+  "properties": {
+    "dbt_project_name": {
+      "default": "moon_analytics",
+      "description": "Name of the dbt project folder under include/dbt/ (contains dbt_project.yml and profiles.yml), e.g. moon_analytics.",
+      "title": "dbt project name",
+      "type": "string"
+    },
+    "select": {
+      "default": null,
+      "description": "dbt node selector (e.g. 'tag:daily', 'staging.*', 'fct_spacecraft_outcomes+'). Leave empty to run all models.",
+      "title": "Select",
+      "type": ["string", "null"]
+    },
+    "exclude": {
+      "default": null,
+      "description": "dbt node exclusion selector (e.g. 'tag:slow')",
+      "title": "Exclude",
+      "type": ["string", "null"]
+    },
+    "full_refresh": {
+      "default": false,
+      "description": "Run with --full-refresh (rebuilds all models from scratch)",
+      "title": "Full Refresh",
+      "type": "boolean"
+    },
+    "result_table": {
+      "default": "fct_spacecraft_outcomes",
+      "description": "DuckDB table (dbt model) to query for the final result",
+      "title": "Result Table",
+      "type": "string"
+    },
+    "target_variable": {
+      "default": "dbt_results",
+      "description": "Airflow Variable name to store the dbt results in",
+      "title": "Target Variable",
+      "type": "string"
+    },
+    "blueprint": {
+      "type": "string",
+      "const": "run_dbt_project_with_cosmos",
+      "description": "The blueprint template to use"
+    },
+    "version": {
+      "type": "integer",
+      "const": 1,
+      "description": "The blueprint version"
+    }
+  },
+  "required": [
+    "blueprint",
+    "version"
+  ],
+  "title": "Run dbt project with Cosmos",
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}

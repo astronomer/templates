@@ -1,0 +1,50 @@
+dag_id: my_moon_mission
+schedule: null
+description: "Your personal moon mission report -- explore the data, then add your birthday to discover your birth decade in space!"
+tags: [interactive, moon-missions, blueprint, exercise]
+
+# ╔═══════════════════════════════════════════════════════════════════╗
+# ║  EXERCISE: This DAG has 2 steps but needs 4 to be complete!     ║
+# ║                                                                 ║
+# ║  Step 1 (done): Explore the raw moon mission data               ║
+# ║  Step 2 (done): Validate data quality                           ║
+# ║                                                                 ║
+# ║  Step 3 (YOU):  Add an "enter_date" step with YOUR birthday.    ║
+# ║                 Set "date" to your birth date (YYYY-MM-DD).     ║
+# ║                 Make it depend on [validate_data].               ║
+# ║                                                                 ║
+# ║  Step 4 (YOU):  Add a "select_missions_based_on_date" step.     ║
+# ║                 Set "grain" to "decade" to see all missions      ║
+# ║                 from your birth decade. Make it depend on        ║
+# ║                 your step 3.                                     ║
+# ║                                                                 ║
+# ║  HINT: Look at extensive_moon_mission_analysis.dag.yaml for     ║
+# ║        working examples of both templates.                       ║
+# ╚═══════════════════════════════════════════════════════════════════╝
+
+steps:
+  explore:
+    blueprint: explore_raw_data
+    source_csv: include/moon_missions.csv
+    num_rows: 5
+    print_schema: true
+
+  validate_data:
+    blueprint: sql_data_quality_check
+    depends_on: [explore]
+    source_csv: include/moon_missions.csv
+    unique_columns: [mission_number]
+    not_null_columns: [launch_date, outcome]
+    table_checks:
+      - "COUNT(*) >= 100"
+
+  # ── YOUR STEPS GO BELOW ──────────────────────────────────────────
+  # Step 3: Enter your birthday
+  #   blueprint: enter_date
+  #   date: "YYYY-MM-DD"          <-- put your birthday here
+  #   depends_on: [validate_data]
+  #
+  # Step 4: See your birth decade in space
+  #   blueprint: select_missions_based_on_date
+  #   grain: decade
+  #   depends_on: [your_step_3]   <-- use the name you gave step 3
